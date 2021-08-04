@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 04, 2021 at 04:29 AM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.4.10
+-- Generation Time: Aug 04, 2021 at 05:57 AM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 8.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,6 +40,20 @@ CREATE TABLE `akbr_contoh` (
 
 INSERT INTO `akbr_contoh` (`id`, `nama`, `alamat`, `email`) VALUES
 (1, 'Muhammad Akbar', 'Sarijadi, Bandung', 'muhammad.akbar5999@gmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `detail_pemesanan`
+--
+
+CREATE TABLE `detail_pemesanan` (
+  `id_detail_pemesanan` int(11) NOT NULL,
+  `id_pemesanan` int(11) NOT NULL,
+  `id_produk` int(11) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `total_harga` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -368,6 +382,45 @@ INSERT INTO `menu_type` (`id_menu_type`, `type`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `pembayran`
+--
+
+CREATE TABLE `pembayran` (
+  `id_pembayaran` int(11) NOT NULL,
+  `id_pemesanan` int(11) NOT NULL,
+  `metode_pembayaran` enum('bayar ditempat','transfer bank') NOT NULL,
+  `status_pembayaran` enum('pembayaran tertunda','dalam proses','selesai') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pemesanan`
+--
+
+CREATE TABLE `pemesanan` (
+  `id_pemesanan` int(11) NOT NULL,
+  `tanggal_pemesanan` date NOT NULL,
+  `total_pembayaran` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `produk`
+--
+
+CREATE TABLE `produk` (
+  `id_produk` int(11) NOT NULL,
+  `nama_produk` varchar(50) NOT NULL,
+  `harga_produk` int(11) NOT NULL,
+  `stok_produk` int(11) NOT NULL,
+  `gambar_produk` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `setting`
 --
 
@@ -451,6 +504,12 @@ ALTER TABLE `akbr_contoh`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `detail_pemesanan`
+--
+ALTER TABLE `detail_pemesanan`
+  ADD PRIMARY KEY (`id_detail_pemesanan`);
+
+--
 -- Indexes for table `frontend_menu`
 --
 ALTER TABLE `frontend_menu`
@@ -495,6 +554,24 @@ ALTER TABLE `menu_type`
   ADD PRIMARY KEY (`id_menu_type`);
 
 --
+-- Indexes for table `pembayran`
+--
+ALTER TABLE `pembayran`
+  ADD PRIMARY KEY (`id_pembayaran`);
+
+--
+-- Indexes for table `pemesanan`
+--
+ALTER TABLE `pemesanan`
+  ADD PRIMARY KEY (`id_pemesanan`);
+
+--
+-- Indexes for table `produk`
+--
+ALTER TABLE `produk`
+  ADD PRIMARY KEY (`id_produk`);
+
+--
 -- Indexes for table `setting`
 --
 ALTER TABLE `setting`
@@ -524,6 +601,12 @@ ALTER TABLE `users_groups`
 --
 ALTER TABLE `akbr_contoh`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `detail_pemesanan`
+--
+ALTER TABLE `detail_pemesanan`
+  MODIFY `id_detail_pemesanan` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `frontend_menu`
@@ -566,6 +649,24 @@ ALTER TABLE `menu`
 --
 ALTER TABLE `menu_type`
   MODIFY `id_menu_type` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `pembayran`
+--
+ALTER TABLE `pembayran`
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pemesanan`
+--
+ALTER TABLE `pemesanan`
+  MODIFY `id_pemesanan` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `produk`
+--
+ALTER TABLE `produk`
+  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `setting`
