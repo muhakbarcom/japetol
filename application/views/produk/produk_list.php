@@ -49,8 +49,8 @@
                 <th>No</th>
 		<th>Nama Produk</th>
 		<th>Harga Produk</th>
+		<th>Stok Produk</th>
 		<th>Gambar Produk</th>
-		<th>Stock</th>
 		<th>Action</th>
             </tr><?php
             foreach ($produk_data as $produk)
@@ -63,8 +63,8 @@
 			<td width="80px"><?php echo ++$start ?></td>
 			<td><?php echo $produk->nama_produk ?></td>
 			<td><?php echo $produk->harga_produk ?></td>
+			<td><?php echo $produk->stok_produk ?></td>
 			<td><?php echo $produk->gambar_produk ?></td>
-			<td><?php echo $produk->stock ?></td>
 			<td style="text-align:center" width="200px">
 				<?php 
 				echo anchor(site_url('produk/read/'.$produk->id_produk),'<i class="fa fa-search"></i>', 'class="btn btn-xs btn-primary"  data-toggle="tooltip" title="Detail"'); 

@@ -2,7 +2,7 @@
 <div class="col-xs-12">
     <div class="box">
       <div class="box-header">
-        <h3 class="box-title">Pemesanan</h3>
+        <h3 class="box-title">Detail_pemesanan</h3>
         <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
                     title="Collapse">
@@ -15,7 +15,7 @@
       <div class="box-body">
         <div class="row" style="margin-bottom: 10px">
             <div class="col-md-4">
-                <?php echo anchor(site_url('pemesanan/create'),'<i class="fa fa-plus"></i> Create', 'class="btn bg-purple"'); ?>
+                <?php echo anchor(site_url('detail_pemesanan/create'),'<i class="fa fa-plus"></i> Create', 'class="btn bg-purple"'); ?>
             </div>
             <div class="col-md-4 text-center">
                 <div style="margin-top: 8px" id="message">
@@ -24,7 +24,7 @@
             </div>
             <div class="col-md-1 text-right">
             </div>
-            <div class="col-md-3 text-right"><form action="<?php echo site_url('pemesanan/index'); ?>" class="form-inline" method="get" style="margin-top:10px">
+            <div class="col-md-3 text-right"><form action="<?php echo site_url('detail_pemesanan/index'); ?>" class="form-inline" method="get" style="margin-top:10px">
                     <div class="input-group">
                         <input type="text" class="form-control" name="q" value="<?php echo $q; ?>">
                         <span class="input-group-btn">
@@ -32,7 +32,7 @@
                                 if ($q <> '')
                                 {
                                     ?>
-                                    <a href="<?php echo site_url('pemesanan'); ?>" class="btn btn-default">Reset</a>
+                                    <a href="<?php echo site_url('detail_pemesanan'); ?>" class="btn btn-default">Reset</a>
                                     <?php
                                 }
                             ?>
@@ -42,32 +42,36 @@
                 </form>
             </div>
         </div>
-        <form method="post" action="<?= site_url('pemesanan/deletebulk');?>" id="formbulk">
+        <form method="post" action="<?= site_url('detail_pemesanan/deletebulk');?>" id="formbulk">
         <table class="table table-bordered" style="margin-bottom: 10px" style="width:100%">
             <tr>
                 <th style="width: 10px;"><input type="checkbox" name="selectall" /></th>
                 <th>No</th>
-		<th>Tanggal Pemesanan</th>
-		<th>Total Pembayaran</th>
+		<th>Id Pemesanan</th>
+		<th>Id Produk</th>
+		<th>Qty</th>
+		<th>Total Harga</th>
 		<th>Action</th>
             </tr><?php
-            foreach ($pemesanan_data as $pemesanan)
+            foreach ($detail_pemesanan_data as $detail_pemesanan)
             {
                 ?>
                 <tr>
                 
-		<td  style="width: 10px;padding-left: 8px;"><input type="checkbox" name="id" value="<?= $pemesanan->id_pemesanan;?>" />&nbsp;</td>
+		<td  style="width: 10px;padding-left: 8px;"><input type="checkbox" name="id" value="<?= $detail_pemesanan->id_detail_pemesanan;?>" />&nbsp;</td>
                 
 			<td width="80px"><?php echo ++$start ?></td>
-			<td><?php echo $pemesanan->tanggal_pemesanan ?></td>
-			<td><?php echo $pemesanan->total_pembayaran ?></td>
+			<td><?php echo $detail_pemesanan->id_pemesanan ?></td>
+			<td><?php echo $detail_pemesanan->id_produk ?></td>
+			<td><?php echo $detail_pemesanan->qty ?></td>
+			<td><?php echo $detail_pemesanan->total_harga ?></td>
 			<td style="text-align:center" width="200px">
 				<?php 
-				echo anchor(site_url('pemesanan/read/'.$pemesanan->id_pemesanan),'<i class="fa fa-search"></i>', 'class="btn btn-xs btn-primary"  data-toggle="tooltip" title="Detail"'); 
+				echo anchor(site_url('detail_pemesanan/read/'.$detail_pemesanan->id_detail_pemesanan),'<i class="fa fa-search"></i>', 'class="btn btn-xs btn-primary"  data-toggle="tooltip" title="Detail"'); 
 				echo ' '; 
-				echo anchor(site_url('pemesanan/update/'.$pemesanan->id_pemesanan),' <i class="fa fa-edit"></i>', 'class="btn btn-xs btn-warning" data-toggle="tooltip" title="Edit"'); 
+				echo anchor(site_url('detail_pemesanan/update/'.$detail_pemesanan->id_detail_pemesanan),' <i class="fa fa-edit"></i>', 'class="btn btn-xs btn-warning" data-toggle="tooltip" title="Edit"'); 
 				echo ' '; 
-				echo anchor(site_url('pemesanan/delete/'.$pemesanan->id_pemesanan),' <i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" onclick="javasciprt: return confirmdelete(\'pemesanan/delete/'.$pemesanan->id_pemesanan.'\')"  data-toggle="tooltip" title="Delete" '); 
+				echo anchor(site_url('detail_pemesanan/delete/'.$detail_pemesanan->id_detail_pemesanan),' <i class="fa fa-trash"></i>','class="btn btn-xs btn-danger" onclick="javasciprt: return confirmdelete(\'detail_pemesanan/delete/'.$detail_pemesanan->id_detail_pemesanan.'\')"  data-toggle="tooltip" title="Delete" '); 
 				?>
 			</td>
 		</tr>
@@ -122,7 +126,7 @@
             }).set('onok', function (closeEvent) {
 
                 $.ajax({
-                    url: "pemesanan/deletebulk",
+                    url: "detail_pemesanan/deletebulk",
                     type: "post",
                     data: "msg = " + rowsel.join(","),
                     success: function (response) {

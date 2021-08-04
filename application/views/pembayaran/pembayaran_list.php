@@ -49,7 +49,7 @@
                 <th>No</th>
 		<th>Id Pemesanan</th>
 		<th>Metode Pembayaran</th>
-		<th>Status</th>
+		<th>Status Pembayaran</th>
 		<th>Action</th>
             </tr><?php
             foreach ($pembayaran_data as $pembayaran)
@@ -62,7 +62,7 @@
 			<td width="80px"><?php echo ++$start ?></td>
 			<td><?php echo $pembayaran->id_pemesanan ?></td>
 			<td><?php echo $pembayaran->metode_pembayaran ?></td>
-			<td><?php echo $pembayaran->status ?></td>
+			<td><?php echo $pembayaran->status_pembayaran ?></td>
 			<td style="text-align:center" width="200px">
 				<?php 
 				echo anchor(site_url('pembayaran/read/'.$pembayaran->id_pembayaran),'<i class="fa fa-search"></i>', 'class="btn btn-xs btn-primary"  data-toggle="tooltip" title="Detail"'); 

@@ -14,11 +14,8 @@
             <!-- /.box-header -->
             <div class="box-body">
         <table class="table">
-	    <tr><td>Tgl Pesanan</td><td><?php echo $tgl_pesanan; ?></td></tr>
-	    <tr><td>Tgl Pengambilan</td><td><?php echo $tgl_pengambilan; ?></td></tr>
+	    <tr><td>Tanggal Pemesanan</td><td><?php echo $tanggal_pemesanan; ?></td></tr>
 	    <tr><td>Total Pembayaran</td><td><?php echo $total_pembayaran; ?></td></tr>
-	    <tr><td>Catatan</td><td><?php echo $catatan; ?></td></tr>
-	    <tr><td>Id Produk</td><td><?php echo $id_produk; ?></td></tr>
 	    <tr><td><a href="<?php echo site_url('pemesanan') ?>" class="btn bg-purple">Cancel</a></td></tr>
 	</table>
             </div>

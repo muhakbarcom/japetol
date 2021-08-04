@@ -2,7 +2,7 @@
     <div class="col-xs-12 col-md-6">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title"><?= $button;?> Pembayaran</h3>
+                <h3 class="box-title"><?= $button;?> Detail_pemesanan</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
                     title="Collapse">
@@ -19,16 +19,20 @@
             <input type="text" class="form-control" name="id_pemesanan" id="id_pemesanan" placeholder="Id Pemesanan" value="<?php echo $id_pemesanan; ?>" />
         </div>
 	    <div class="form-group">
-            <label for="enum">Metode Pembayaran <?php echo form_error('metode_pembayaran') ?></label>
-            <input type="text" class="form-control" name="metode_pembayaran" id="metode_pembayaran" placeholder="Metode Pembayaran" value="<?php echo $metode_pembayaran; ?>" />
+            <label for="int">Id Produk <?php echo form_error('id_produk') ?></label>
+            <input type="text" class="form-control" name="id_produk" id="id_produk" placeholder="Id Produk" value="<?php echo $id_produk; ?>" />
         </div>
 	    <div class="form-group">
-            <label for="enum">Status Pembayaran <?php echo form_error('status_pembayaran') ?></label>
-            <input type="text" class="form-control" name="status_pembayaran" id="status_pembayaran" placeholder="Status Pembayaran" value="<?php echo $status_pembayaran; ?>" />
+            <label for="int">Qty <?php echo form_error('qty') ?></label>
+            <input type="text" class="form-control" name="qty" id="qty" placeholder="Qty" value="<?php echo $qty; ?>" />
         </div>
-	    <input type="hidden" name="id_pembayaran" value="<?php echo $id_pembayaran; ?>" /> 
+	    <div class="form-group">
+            <label for="int">Total Harga <?php echo form_error('total_harga') ?></label>
+            <input type="text" class="form-control" name="total_harga" id="total_harga" placeholder="Total Harga" value="<?php echo $total_harga; ?>" />
+        </div>
+	    <input type="hidden" name="id_detail_pemesanan" value="<?php echo $id_detail_pemesanan; ?>" /> 
 	    <button type="submit" class="btn btn-primary"><?php echo $button ?></button> 
-	    <a href="<?php echo site_url('pembayaran') ?>" class="btn btn-default">Cancel</a>
+	    <a href="<?php echo site_url('detail_pemesanan') ?>" class="btn btn-default">Cancel</a>
 	</form>
          </div>
         </div>

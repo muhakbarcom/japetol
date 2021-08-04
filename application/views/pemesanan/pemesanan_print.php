@@ -31,11 +31,8 @@
     <table class="word-table" style="margin-bottom: 10px">
             <tr>
                 <th>No</th>
-		<th>Tgl Pesanan</th>
-		<th>Tgl Pengambilan</th>
+		<th>Tanggal Pemesanan</th>
 		<th>Total Pembayaran</th>
-		<th>Catatan</th>
-		<th>Id Produk</th>
 		
             </tr><?php
             foreach ($pemesanan_data as $pemesanan)
@@ -43,11 +40,8 @@
                 ?>
                 <tr>
 		      <td><?php echo ++$start ?></td>
-		      <td><?php echo $pemesanan->tgl_pesanan ?></td>
-		      <td><?php echo $pemesanan->tgl_pengambilan ?></td>
-		      <td><?php echo $pemesanan->total_pembayaran ?></td>
-		      <td><?php echo $pemesanan->catatan ?></td>
-		      <td><?php echo $pemesanan->id_produk ?></td>	
+		      <td><?php echo $pemesanan->tanggal_pemesanan ?></td>
+		      <td><?php echo $pemesanan->total_pembayaran ?></td>	
                 </tr>
                 <?php
             }

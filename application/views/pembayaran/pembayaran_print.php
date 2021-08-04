@@ -33,7 +33,7 @@
                 <th>No</th>
 		<th>Id Pemesanan</th>
 		<th>Metode Pembayaran</th>
-		<th>Status</th>
+		<th>Status Pembayaran</th>
 		
             </tr><?php
             foreach ($pembayaran_data as $pembayaran)
@@ -43,7 +43,7 @@
 		      <td><?php echo ++$start ?></td>
 		      <td><?php echo $pembayaran->id_pemesanan ?></td>
 		      <td><?php echo $pembayaran->metode_pembayaran ?></td>
-		      <td><?php echo $pembayaran->status ?></td>	
+		      <td><?php echo $pembayaran->status_pembayaran ?></td>	
                 </tr>
                 <?php
             }

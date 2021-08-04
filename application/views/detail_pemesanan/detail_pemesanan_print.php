@@ -26,26 +26,26 @@
         </style>
 </head>
 <body>
-    <h3 align="center">DATA Produk</h3>
+    <h3 align="center">DATA Detail Pemesanan</h3>
     <h4>Tanggal Cetak : <?= date("d/M/Y");?> </h4>
     <table class="word-table" style="margin-bottom: 10px">
             <tr>
                 <th>No</th>
-		<th>Nama Produk</th>
-		<th>Harga Produk</th>
-		<th>Stok Produk</th>
-		<th>Gambar Produk</th>
+		<th>Id Pemesanan</th>
+		<th>Id Produk</th>
+		<th>Qty</th>
+		<th>Total Harga</th>
 		
             </tr><?php
-            foreach ($produk_data as $produk)
+            foreach ($detail_pemesanan_data as $detail_pemesanan)
             {
                 ?>
                 <tr>
 		      <td><?php echo ++$start ?></td>
-		      <td><?php echo $produk->nama_produk ?></td>
-		      <td><?php echo $produk->harga_produk ?></td>
-		      <td><?php echo $produk->stok_produk ?></td>
-		      <td><?php echo $produk->gambar_produk ?></td>	
+		      <td><?php echo $detail_pemesanan->id_pemesanan ?></td>
+		      <td><?php echo $detail_pemesanan->id_produk ?></td>
+		      <td><?php echo $detail_pemesanan->qty ?></td>
+		      <td><?php echo $detail_pemesanan->total_harga ?></td>	
                 </tr>
                 <?php
             }

@@ -16,7 +16,7 @@
         <table class="table">
 	    <tr><td>Id Pemesanan</td><td><?php echo $id_pemesanan; ?></td></tr>
 	    <tr><td>Metode Pembayaran</td><td><?php echo $metode_pembayaran; ?></td></tr>
-	    <tr><td>Status</td><td><?php echo $status; ?></td></tr>
+	    <tr><td>Status Pembayaran</td><td><?php echo $status_pembayaran; ?></td></tr>
 	    <tr><td><a href="<?php echo site_url('pembayaran') ?>" class="btn bg-purple">Cancel</a></td></tr>
 	</table>
             </div>

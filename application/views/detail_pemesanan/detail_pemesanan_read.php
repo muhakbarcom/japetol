@@ -2,7 +2,7 @@
     <div class="col-xs-12 col-md-6">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Produk Detail</h3>
+                <h3 class="box-title">Detail Pemesanan Detail</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
                     title="Collapse">
@@ -14,11 +14,11 @@
             <!-- /.box-header -->
             <div class="box-body">
         <table class="table">
-	    <tr><td>Nama Produk</td><td><?php echo $nama_produk; ?></td></tr>
-	    <tr><td>Harga Produk</td><td><?php echo $harga_produk; ?></td></tr>
-	    <tr><td>Stok Produk</td><td><?php echo $stok_produk; ?></td></tr>
-	    <tr><td>Gambar Produk</td><td><?php echo $gambar_produk; ?></td></tr>
-	    <tr><td><a href="<?php echo site_url('produk') ?>" class="btn bg-purple">Cancel</a></td></tr>
+	    <tr><td>Id Pemesanan</td><td><?php echo $id_pemesanan; ?></td></tr>
+	    <tr><td>Id Produk</td><td><?php echo $id_produk; ?></td></tr>
+	    <tr><td>Qty</td><td><?php echo $qty; ?></td></tr>
+	    <tr><td>Total Harga</td><td><?php echo $total_harga; ?></td></tr>
+	    <tr><td><a href="<?php echo site_url('detail_pemesanan') ?>" class="btn bg-purple">Cancel</a></td></tr>
 	</table>
             </div>
         </div>

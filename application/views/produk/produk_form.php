@@ -23,12 +23,12 @@
             <input type="text" class="form-control" name="harga_produk" id="harga_produk" placeholder="Harga Produk" value="<?php echo $harga_produk; ?>" />
         </div>
 	    <div class="form-group">
-            <label for="varchar">Gambar Produk <?php echo form_error('gambar_produk') ?></label>
-            <input type="text" class="form-control" name="gambar_produk" id="gambar_produk" placeholder="Gambar Produk" value="<?php echo $gambar_produk; ?>" />
+            <label for="int">Stok Produk <?php echo form_error('stok_produk') ?></label>
+            <input type="text" class="form-control" name="stok_produk" id="stok_produk" placeholder="Stok Produk" value="<?php echo $stok_produk; ?>" />
         </div>
 	    <div class="form-group">
-            <label for="int">Stock <?php echo form_error('stock') ?></label>
-            <input type="text" class="form-control" name="stock" id="stock" placeholder="Stock" value="<?php echo $stock; ?>" />
+            <label for="varchar">Gambar Produk <?php echo form_error('gambar_produk') ?></label>
+            <input type="text" class="form-control" name="gambar_produk" id="gambar_produk" placeholder="Gambar Produk" value="<?php echo $gambar_produk; ?>" />
         </div>
 	    <input type="hidden" name="id_produk" value="<?php echo $id_produk; ?>" /> 
 	    <button type="submit" class="btn btn-primary"><?php echo $button ?></button> 
