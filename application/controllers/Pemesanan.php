@@ -202,10 +202,29 @@ class Pemesanan extends CI_Controller
 
             $this->Detail_pemesanan_model->insert($data_detail);
         }
+
+        $bukti_transfer = $_FILES['bukti_transfer'];
+        if ($bukti_transfer == '') {
+        } else {
+            $config['upload_path'] = './assets/uploads/image/bukti_tf/';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
+            $config['max_size']     = '2048';
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('bukti_transfer')) {
+
+                $bukti_transfer = $this->upload->data('file_name');
+            } else {
+                $this->session->set_flashdata('error', $this->upload->display_errors());
+                redirect('pemesanan/checkout');
+            }
+        }
         $data_pembayaran = array(
             'id_pemesanan' => $id_trx,
             'metode_pembayaran' => $this->input->post('metode_pembayaran', TRUE),
             'status_pembayaran' => "dalam proses",
+            'bukti_transfer' => $bukti_transfer,
         );
 
         $this->Pembayaran_model->insert($data_pembayaran);

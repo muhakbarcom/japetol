@@ -32,23 +32,25 @@
 
         <div class="col-md-6"> <b>Total Bayar</b> <?= rupiah($this->cart->total()); ?></div>
     </div>
-    <form action="<?= base_url() ?>pemesanan/buatPesanan" method="post">
-        <div class="row mt-3">
-            <div class="col-md-8 form-group">
-                <h3>Pembayaran</h3>
-                <label>
-                    Metode Pembayaran
-                    <select name="metode_pembayaran" id="metode_pembayaran" class="form-control">
-                        <option value="bayar ditempat">bayar ditempat</option>
-                        <option value="transfer bank">transfer bank</option>
-                    </select>
-                </label>
-            </div>
+    <?php echo form_open_multipart('pemesanan/buatPesanan'); ?>
+    <div class="row mt-3">
+        <div class="col-md-8 form-group">
+            <h3>Pembayaran</h3>
+            <label>
+                Metode Pembayaran
+                <select name="metode_pembayaran" id="metode_pembayaran" class="form-control">
+                    <option value="bayar ditempat">bayar ditempat</option>
+                    <option value="transfer bank">transfer bank</option>
+                </select>
+            </label>
+
+            <input type="file" class="form-control" name="bukti_transfer" id="bukti_transfer" placeholder="bukti_transfer" />
         </div>
-        <div class="row mt-5">
-            <div class="col-md-6"><a href="<?= base_url('pemesanan/keranjang'); ?>" class="btn btn-primary">Kembali</a></div>
-            <div class="col-md-6 text-right"><button type="submit" class="btn btn-primary">Buat Pesanan</button></div>
-        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-6"><a href="<?= base_url('pemesanan/keranjang'); ?>" class="btn btn-primary">Kembali</a></div>
+        <div class="col-md-6 text-right"><button type="submit" class="btn btn-primary">Buat Pesanan</button></div>
+    </div>
     </form>
 
 
