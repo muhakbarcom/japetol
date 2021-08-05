@@ -9,7 +9,7 @@ class Produk extends CI_Controller
     {
         parent::__construct();
         $c_url = $this->router->fetch_class();
-        $this->layout->auth(); 
+        $this->layout->auth();
         $this->layout->auth_privilege($c_url);
         $this->load->model('Produk_model');
         $this->load->library('form_validation');
@@ -19,7 +19,7 @@ class Produk extends CI_Controller
     {
         $q = urldecode($this->input->get('q', TRUE));
         $start = intval($this->input->get('start'));
-        
+
         if ($q <> '') {
             $config['base_url'] = base_url() . 'produk?q=' . urlencode($q);
             $config['first_url'] = base_url() . 'produk?q=' . urlencode($q);
@@ -53,42 +53,42 @@ class Produk extends CI_Controller
         $this->load->view('template/backend', $data);
     }
 
-    public function read($id) 
+    public function read($id)
     {
         $row = $this->Produk_model->get_by_id($id);
         if ($row) {
             $data = array(
-		'id_produk' => $row->id_produk,
-		'nama_produk' => $row->nama_produk,
-		'harga_produk' => $row->harga_produk,
-		'stok_produk' => $row->stok_produk,
-		'gambar_produk' => $row->gambar_produk,
-	    );
-        $data['title'] = 'Produk';
-        $data['subtitle'] = '';
-        $data['crumb'] = [
-            'Dashboard' => '',
-        ];
+                'id_produk' => $row->id_produk,
+                'nama_produk' => $row->nama_produk,
+                'harga_produk' => $row->harga_produk,
+                'stok_produk' => $row->stok_produk,
+                'gambar_produk' => $row->gambar_produk,
+            );
+            $data['title'] = 'Produk';
+            $data['subtitle'] = '';
+            $data['crumb'] = [
+                'Dashboard' => '',
+            ];
 
-        $data['page'] = 'produk/produk_read';
-        $this->load->view('template/backend', $data);
+            $data['page'] = 'produk/produk_read';
+            $this->load->view('template/backend', $data);
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('produk'));
         }
     }
 
-    public function create() 
+    public function create()
     {
         $data = array(
             'button' => 'Create',
             'action' => site_url('produk/create_action'),
-	    'id_produk' => set_value('id_produk'),
-	    'nama_produk' => set_value('nama_produk'),
-	    'harga_produk' => set_value('harga_produk'),
-	    'stok_produk' => set_value('stok_produk'),
-	    'gambar_produk' => set_value('gambar_produk'),
-	);
+            'id_produk' => set_value('id_produk'),
+            'nama_produk' => set_value('nama_produk'),
+            'harga_produk' => set_value('harga_produk'),
+            'stok_produk' => set_value('stok_produk'),
+            'gambar_produk' => set_value('gambar_produk'),
+        );
         $data['title'] = 'Produk';
         $data['subtitle'] = '';
         $data['crumb'] = [
@@ -98,28 +98,45 @@ class Produk extends CI_Controller
         $data['page'] = 'produk/produk_form';
         $this->load->view('template/backend', $data);
     }
-    
-    public function create_action() 
+
+    public function create_action()
     {
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
             $this->create();
         } else {
+            $gambar_produk = $_FILES['gambar_produk'];
+            if ($gambar_produk == '') {
+            } else {
+                $config['upload_path'] = './assets/uploads/image/menu/';
+                $config['allowed_types'] = 'gif|jpg|png|jpeg';
+                $config['max_size']     = '2048';
+
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('gambar_produk')) {
+
+                    $gambar_produk = $this->upload->data('file_name');
+                } else {
+                    $this->session->set_flashdata('error', $this->upload->display_errors());
+                    redirect('produk');
+                }
+            }
             $data = array(
-		'nama_produk' => $this->input->post('nama_produk',TRUE),
-		'harga_produk' => $this->input->post('harga_produk',TRUE),
-		'stok_produk' => $this->input->post('stok_produk',TRUE),
-		'gambar_produk' => $this->input->post('gambar_produk',TRUE),
-	    );
+                'nama_produk' => $this->input->post('nama_produk', TRUE),
+                'harga_produk' => $this->input->post('harga_produk', TRUE),
+                'stok_produk' => $this->input->post('stok_produk', TRUE),
+                'gambar_produk' => $gambar_produk,
+            );
 
             $this->Produk_model->insert($data);
             $this->session->set_flashdata('success', 'Create Record Success');
             redirect(site_url('produk'));
         }
     }
-    
-    public function update($id) 
+
+    public function update($id)
     {
         $row = $this->Produk_model->get_by_id($id);
 
@@ -127,47 +144,65 @@ class Produk extends CI_Controller
             $data = array(
                 'button' => 'Update',
                 'action' => site_url('produk/update_action'),
-		'id_produk' => set_value('id_produk', $row->id_produk),
-		'nama_produk' => set_value('nama_produk', $row->nama_produk),
-		'harga_produk' => set_value('harga_produk', $row->harga_produk),
-		'stok_produk' => set_value('stok_produk', $row->stok_produk),
-		'gambar_produk' => set_value('gambar_produk', $row->gambar_produk),
-	    );
+                'id_produk' => set_value('id_produk', $row->id_produk),
+                'nama_produk' => set_value('nama_produk', $row->nama_produk),
+                'harga_produk' => set_value('harga_produk', $row->harga_produk),
+                'stok_produk' => set_value('stok_produk', $row->stok_produk),
+                'gambar_produk' => set_value('gambar_produk', $row->gambar_produk),
+            );
             $data['title'] = 'Produk';
-        $data['subtitle'] = '';
-        $data['crumb'] = [
-            'Dashboard' => '',
-        ];
+            $data['subtitle'] = '';
+            $data['crumb'] = [
+                'Dashboard' => '',
+            ];
 
-        $data['page'] = 'produk/produk_form';
-        $this->load->view('template/backend', $data);
+            $data['page'] = 'produk/produk_form';
+            $this->load->view('template/backend', $data);
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('produk'));
         }
     }
-    
-    public function update_action() 
+
+    public function update_action()
     {
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
             $this->update($this->input->post('id_produk', TRUE));
         } else {
+            $gambar_produk = $_FILES['gambar_produk'];
+            if ($gambar_produk == '') {
+            } else {
+                $config['upload_path'] = './assets/uploads/image/menu/';
+                $config['allowed_types'] = 'gif|jpg|png|jpeg';
+                $config['max_size']     = '2048';
+
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('gambar_produk')) {
+                    $old_image = $this->input->post('gambar_lama');
+                    if ($old_image != 'default.jpg') {
+                        unlink(FCPATH . 'assets/uploads/image/menu/' . $old_image);
+                    }
+                    $new_image = $this->upload->data('file_name');
+                    $this->db->set('gambar_produk', $new_image);
+                }
+            }
             $data = array(
-		'nama_produk' => $this->input->post('nama_produk',TRUE),
-		'harga_produk' => $this->input->post('harga_produk',TRUE),
-		'stok_produk' => $this->input->post('stok_produk',TRUE),
-		'gambar_produk' => $this->input->post('gambar_produk',TRUE),
-	    );
+                'nama_produk' => $this->input->post('nama_produk', TRUE),
+                'harga_produk' => $this->input->post('harga_produk', TRUE),
+                'stok_produk' => $this->input->post('stok_produk', TRUE),
+                // 'gambar_produk' => $this->input->post('gambar_produk', TRUE),
+            );
 
             $this->Produk_model->update($this->input->post('id_produk', TRUE), $data);
             $this->session->set_flashdata('success', 'Update Record Success');
             redirect(site_url('produk'));
         }
     }
-    
-    public function delete($id) 
+
+    public function delete($id)
     {
         $row = $this->Produk_model->get_by_id($id);
 
@@ -181,27 +216,27 @@ class Produk extends CI_Controller
         }
     }
 
-    public function deletebulk(){
+    public function deletebulk()
+    {
         $delete = $this->Produk_model->deletebulk();
-        if($delete){
+        if ($delete) {
             $this->session->set_flashdata('success', 'Delete Record Success');
-        }else{
+        } else {
             $this->session->set_flashdata('error', 'Delete Record failed');
         }
         echo $delete;
     }
-   
-    public function _rules() 
+
+    public function _rules()
     {
-	$this->form_validation->set_rules('nama_produk', 'nama produk', 'trim|required');
-	$this->form_validation->set_rules('harga_produk', 'harga produk', 'trim|required');
-	$this->form_validation->set_rules('stok_produk', 'stok produk', 'trim|required');
-	$this->form_validation->set_rules('gambar_produk', 'gambar produk', 'trim|required');
+        $this->form_validation->set_rules('nama_produk', 'nama produk', 'trim|required');
+        $this->form_validation->set_rules('harga_produk', 'harga produk', 'trim|required');
+        $this->form_validation->set_rules('stok_produk', 'stok produk', 'trim|required');
+        // $this->form_validation-  >set_rules('gambar_produk', 'gambar produk', 'trim|required');
 
-	$this->form_validation->set_rules('id_produk', 'id_produk', 'trim');
-	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+        $this->form_validation->set_rules('id_produk', 'id_produk', 'trim');
+        $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
-
 }
 
 /* End of file Produk.php */
