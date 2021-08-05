@@ -49,7 +49,7 @@
                                                 <?php echo rupiah($produk->harga_produk) ?>
                                             </b>
                                             <br>
-                                            <a href="<?= base_url('pemesanan/keranjang/') . $produk->id_produk; ?>" class="btn btn-primary"><i class="fas fa-shopping-cart"></i> Keranjang</a>
+                                            <a href="<?= base_url('pemesanan/tambahKeranjang/') . $produk->id_produk; ?>" class="btn btn-primary"><i class="fas fa-shopping-cart"></i> Keranjang</a>
                                         </p>
                                     </div>
                                 </div>

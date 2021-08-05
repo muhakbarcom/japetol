@@ -102,12 +102,13 @@ $setting_aplikasi = $this->db->get('setting')->row();
             $user = $this->ion_auth->user()->row();
             ?>
             <!-- User Account: style can be found in dropdown.less -->
-            <li class="dropdown user user-menu">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <span class="hidden-xs"><i class="fas fa-shopping-cart"></i> Keranjang</span>
-              </a>
-            </li>
+
             <?php if ($this->ion_auth->in_group("pelanggan")) { ?>
+              <li class="dropdown user user-menu">
+                <a href="<?= base_url('pemesanan/keranjang'); ?>">
+                  <span class="hidden-xs"><i class="fas fa-shopping-cart"></i> Keranjang (<?php echo $this->cart->total_items() ?>)</span>
+                </a>
+              </li>
               <li>
                 <a href="<?= base_url('auth/logout'); ?>">
                   <span class="hidden-xs"><i class="fas fa-sign-out-alt"></i> Logout</span>

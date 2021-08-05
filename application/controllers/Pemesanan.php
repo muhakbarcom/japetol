@@ -54,7 +54,7 @@ class Pemesanan extends CI_Controller
         $this->load->view('template/backend', $data);
     }
 
-    public function keranjang($id_produk)
+    public function tambahKeranjang($id_produk)
     {
         $produk = $this->Produk_model->get_by_id($id_produk);
         $data = array(
@@ -64,19 +64,20 @@ class Pemesanan extends CI_Controller
             'name'    => $produk->nama_produk,
         );
         $this->cart->insert($data);
-        redirect('konsumen/order/' . $produk->kategori_produk);
+        redirect('frontend');
     }
-    public function detail_keranjang()
+
+
+
+    public function keranjang()
     {
-        $data['title'] = 'Pemesanan Konsumen';
+        $data['title'] = 'Keranjang';
         $data['subtitle'] = '';
         $data['crumb'] = [
             'Dashboard' => '',
         ];
-        //$this->layout->set_privilege(1);
-        $data['view_menu_terbaru'] = $this->db->query("select * from view_menu_terbaru")->result_array();
         $data['page'] = 'keranjang';
-        $this->load->view('template/konsumen', $data);
+        $this->load->view('template/pelanggan', $data);
     }
 
     public function read($id)
@@ -139,30 +140,41 @@ class Pemesanan extends CI_Controller
         }
     }
 
-    public function update($id)
+    function hapus($rowid)
     {
-        $row = $this->Pemesanan_model->get_by_id($id);
-
-        if ($row) {
-            $data = array(
-                'button' => 'Update',
-                'action' => site_url('pemesanan/update_action'),
-                'id_pemesanan' => set_value('id_pemesanan', $row->id_pemesanan),
-                'tanggal_pemesanan' => set_value('tanggal_pemesanan', $row->tanggal_pemesanan),
-                'total_pembayaran' => set_value('total_pembayaran', $row->total_pembayaran),
-            );
-            $data['title'] = 'Pemesanan';
-            $data['subtitle'] = '';
-            $data['crumb'] = [
-                'Dashboard' => '',
-            ];
-
-            $data['page'] = 'pemesanan/pemesanan_form';
-            $this->load->view('template/backend', $data);
+        if ($rowid == "all") {
+            $this->cart->destroy();
         } else {
-            $this->session->set_flashdata('error', 'Record Not Found');
-            redirect(site_url('pemesanan'));
+            $data = array(
+                'rowid' => $rowid,
+                'qty' => 0
+            );
+            $this->cart->update($data);
         }
+        redirect('pemesanan/keranjang');
+    }
+
+    public function update()
+    {
+        $i = 1;
+        foreach ($this->cart->contents() as $items) {
+            $data = array(
+                'rowid' => $items['rowid'],
+                'qty'   => $this->input->post($i . '[qty]'),
+            );
+            $this->cart->update($data);
+            $i++;
+        }
+        redirect('pemesanan/keranjang');
+    }
+
+    public function checkout()
+    {
+
+        $data['title'] = 'Pemesanan Konsumen';
+        //$this->layout->set_privilege(1);
+        $data['page'] = 'checkout';
+        $this->load->view('template/konsumen', $data);
     }
 
     public function update_action()
