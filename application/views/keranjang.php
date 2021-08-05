@@ -3,7 +3,7 @@
         <thead class="thead-dark">
             <tr>
                 <!-- <th>Gambar</th> -->
-                <th>Nama Menu</th>
+                <th>Nama Produk</th>
                 <th>Harga</th>
                 <th>Qty</th>
                 <th>Sub Total</th>

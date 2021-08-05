@@ -14,6 +14,8 @@ class Pemesanan extends CI_Controller
         $this->load->model('Pemesanan_model');
         $this->load->library('form_validation');
         $this->load->model('Produk_model');
+        $this->load->model('Detail_pemesanan_model');
+        $this->load->model('Pembayaran_model');
     }
 
     public function index()
@@ -168,13 +170,66 @@ class Pemesanan extends CI_Controller
         redirect('pemesanan/keranjang');
     }
 
+    public function buatPesanan()
+    {
+
+
+        $apa = $this->ion_auth->user()->row();
+
+
+        $i = 1;
+        $total_item = $this->cart->total_items();
+        $total_bayar = $this->cart->total();
+
+        $data = array(
+            'tanggal_pemesanan' => date('Y-m-d'),
+            'total_pembayaran' => $total_bayar,
+            'id_pelanggan' => $apa->id,
+        );
+
+        $id_trx = $this->Pemesanan_model->insert($data);
+        $i = 1;
+
+        foreach ($this->cart->contents() as $items) {
+
+            $data_detail = array(
+                'id_pemesanan' => $id_trx,
+                'id_produk' => $items['id'],
+                'qty' => $items['qty'],
+                'total_harga' => $items['subtotal'],
+            );
+            $i++;
+
+            $this->Detail_pemesanan_model->insert($data_detail);
+        }
+        $data_pembayaran = array(
+            'id_pemesanan' => $id_trx,
+            'metode_pembayaran' => $this->input->post('metode_pembayaran', TRUE),
+            'status_pembayaran' => "dalam proses",
+        );
+
+        $this->Pembayaran_model->insert($data_pembayaran);
+
+        $this->cart->destroy();
+        redirect('pemesanan/berhasil');
+    }
+
+    public function berhasil()
+    {
+
+        $data['title'] = 'Berhasil';
+        //$this->layout->set_privilege(1);
+        $data['page'] = 'berhasil';
+        $this->load->view('template/pelanggan', $data);
+    }
+
     public function checkout()
     {
 
         $data['title'] = 'Pemesanan Konsumen';
         //$this->layout->set_privilege(1);
         $data['page'] = 'checkout';
-        $this->load->view('template/konsumen', $data);
+        $this->load->view('template/pelanggan', $data);
     }
 
     public function update_action()
