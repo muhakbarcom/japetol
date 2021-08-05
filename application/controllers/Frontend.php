@@ -5,11 +5,59 @@ class Frontend extends CI_Controller
 {
 
 
+  // public function index()
+  // {
+  //   $data['page'] = 'frontend/index';
+  //   $data['title'] = 'Home';
+  //   $this->load->view('template/frontend', $data);
+  // }
+
+  function __construct()
+  {
+    parent::__construct();
+    $c_url = $this->router->fetch_class();
+    // $this->layout->auth();
+    // $this->layout->auth_privilege($c_url);
+    $this->load->model('Produk_model');
+    $this->load->library('form_validation');
+  }
+
   public function index()
   {
+    $q = urldecode($this->input->get('q', TRUE));
+    $start = intval($this->input->get('start'));
+
+    if ($q <> '') {
+      $config['base_url'] = base_url() . 'frontend?q=' . urlencode($q);
+      $config['first_url'] = base_url() . 'frontend?q=' . urlencode($q);
+    } else {
+      $config['base_url'] = base_url() . 'frontend';
+      $config['first_url'] = base_url() . 'frontend';
+    }
+
+    $config['per_page'] = 10;
+    $config['page_query_string'] = TRUE;
+    $config['total_rows'] = $this->Produk_model->total_rows($q);
+    $produk = $this->Produk_model->get_limit_data($config['per_page'], $start, $q);
+
+    $this->load->library('pagination');
+    $this->pagination->initialize($config);
+
+    $data = array(
+      'produk_data' => $produk,
+      'q' => $q,
+      'pagination' => $this->pagination->create_links(),
+      'total_rows' => $config['total_rows'],
+      'start' => $start,
+    );
+    $data['title'] = 'Produk';
+    $data['subtitle'] = '';
+    $data['crumb'] = [
+      'Produk' => '',
+    ];
+
     $data['page'] = 'frontend/index';
-    $data['title'] = 'Home';
-    $this->load->view('template/frontend', $data);
+    $this->load->view('template/pelanggan', $data);
   }
 
   public function about()

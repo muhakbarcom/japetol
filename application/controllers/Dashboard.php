@@ -12,14 +12,17 @@ class Dashboard extends CI_Controller
 
 	public function index()
 	{
-
-		$data['title'] = 'Dashboard';
-		$data['subtitle'] = '';
-		$data['crumb'] = [
-			'Dashboard' => '',
-		];
-		//$this->layout->set_privilege(1);
-		$data['page'] = 'Dashboard/Index';
-		$this->load->view('template/backend', $data);
+		if ($this->ion_auth->in_group("pelanggan")) {
+			redirect('frontend');
+		} else {
+			$data['title'] = 'Dashboard';
+			$data['subtitle'] = '';
+			$data['crumb'] = [
+				'Dashboard' => '',
+			];
+			//$this->layout->set_privilege(1);
+			$data['page'] = 'Dashboard/Index';
+			$this->load->view('template/backend', $data);
+		}
 	}
 }

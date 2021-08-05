@@ -53,6 +53,8 @@ class Produk extends CI_Controller
         $this->load->view('template/backend', $data);
     }
 
+
+
     public function read($id)
     {
         $row = $this->Produk_model->get_by_id($id);
