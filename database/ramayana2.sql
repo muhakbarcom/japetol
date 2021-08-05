@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 05, 2021 at 11:44 AM
+-- Generation Time: Aug 05, 2021 at 12:35 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -54,6 +54,13 @@ CREATE TABLE `detail_pemesanan` (
   `qty` int(11) NOT NULL,
   `total_harga` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `detail_pemesanan`
+--
+
+INSERT INTO `detail_pemesanan` (`id_detail_pemesanan`, `id_pemesanan`, `id_produk`, `qty`, `total_harga`) VALUES
+(1, 1, 11, 2, 100000);
 
 -- --------------------------------------------------------
 
@@ -347,8 +354,16 @@ CREATE TABLE `pembayaran` (
   `id_pembayaran` int(11) NOT NULL,
   `id_pemesanan` int(11) NOT NULL,
   `metode_pembayaran` enum('bayar ditempat','transfer bank') NOT NULL,
-  `status_pembayaran` enum('pembayaran tertunda','dalam proses','selesai') NOT NULL
+  `status_pembayaran` enum('pembayaran tertunda','dalam proses','selesai') NOT NULL,
+  `bukti_transfer` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pembayaran`
+--
+
+INSERT INTO `pembayaran` (`id_pembayaran`, `id_pemesanan`, `metode_pembayaran`, `status_pembayaran`, `bukti_transfer`) VALUES
+(1, 1, 'bayar ditempat', 'dalam proses', '');
 
 -- --------------------------------------------------------
 
@@ -359,8 +374,16 @@ CREATE TABLE `pembayaran` (
 CREATE TABLE `pemesanan` (
   `id_pemesanan` int(11) NOT NULL,
   `tanggal_pemesanan` date NOT NULL,
-  `total_pembayaran` int(11) NOT NULL
+  `total_pembayaran` int(11) NOT NULL,
+  `id_pelanggan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pemesanan`
+--
+
+INSERT INTO `pemesanan` (`id_pemesanan`, `tanggal_pemesanan`, `total_pembayaran`, `id_pelanggan`) VALUES
+(1, '2021-08-05', 100000, 47);
 
 -- --------------------------------------------------------
 
@@ -583,7 +606,7 @@ ALTER TABLE `akbr_contoh`
 -- AUTO_INCREMENT for table `detail_pemesanan`
 --
 ALTER TABLE `detail_pemesanan`
-  MODIFY `id_detail_pemesanan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_detail_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `frontend_menu`
@@ -631,13 +654,13 @@ ALTER TABLE `menu_type`
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  MODIFY `id_pemesanan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `produk`
