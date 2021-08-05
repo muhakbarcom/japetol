@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 04, 2021 at 05:57 AM
+-- Generation Time: Aug 05, 2021 at 07:41 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -97,7 +97,8 @@ CREATE TABLE `groups` (
 
 INSERT INTO `groups` (`id`, `name`, `description`) VALUES
 (1, 'admin', 'Administrator'),
-(2, 'members', 'General User');
+(2, 'pelanggan', 'General User'),
+(33, 'owner', 'manager toko');
 
 -- --------------------------------------------------------
 
@@ -124,7 +125,6 @@ INSERT INTO `groups_menu` (`id_groups`, `id_menu`) VALUES
 (1, 94),
 (1, 43),
 (1, 44),
-(1, 115),
 (1, 42),
 (1, 1),
 (2, 1),
@@ -180,59 +180,6 @@ INSERT INTO `groups_menu` (`id_groups`, `id_menu`) VALUES
 (27, 3),
 (28, 3),
 (29, 3),
-(1, 118),
-(5, 118),
-(6, 118),
-(7, 118),
-(8, 118),
-(9, 118),
-(10, 118),
-(11, 118),
-(12, 118),
-(13, 118),
-(14, 118),
-(15, 118),
-(16, 118),
-(17, 118),
-(18, 118),
-(19, 118),
-(20, 118),
-(21, 118),
-(22, 118),
-(23, 118),
-(24, 118),
-(25, 118),
-(26, 118),
-(27, 118),
-(28, 118),
-(29, 118),
-(1, 117),
-(2, 117),
-(5, 117),
-(6, 117),
-(7, 117),
-(8, 117),
-(9, 117),
-(10, 117),
-(11, 117),
-(12, 117),
-(13, 117),
-(14, 117),
-(15, 117),
-(16, 117),
-(17, 117),
-(18, 117),
-(19, 117),
-(20, 117),
-(21, 117),
-(22, 117),
-(23, 117),
-(24, 117),
-(25, 117),
-(26, 117),
-(27, 117),
-(28, 117),
-(29, 117),
 (1, 125),
 (2, 125),
 (7, 125),
@@ -245,7 +192,13 @@ INSERT INTO `groups_menu` (`id_groups`, `id_menu`) VALUES
 (29, 125),
 (1, 127),
 (2, 127),
-(2, 113);
+(2, 114),
+(1, 115),
+(1, 120),
+(33, 121),
+(1, 119),
+(2, 117),
+(2, 118);
 
 -- --------------------------------------------------------
 
@@ -357,9 +310,14 @@ INSERT INTO `menu` (`id_menu`, `sort`, `level`, `parent_id`, `icon`, `label`, `l
 (89, 8, 2, 40, 'fas fa-th-list', 'Menu Type', 'menu_type', 'menu_type', 1),
 (92, 2, 1, 0, 'empty', 'MASTER DATA', '#', 'masterdata', 1),
 (107, 5, 2, 40, 'fas fa-cog', 'Setting', 'setting', 'setting', 1),
-(108, 3, 2, 92, 'fab fa-affiliatetheme', 'Mahasiswa', 'mahasiswa', 'mahasiswa', 1),
 (109, 6, 2, 40, 'fas fa-align-justify', 'Frontend Menu', 'frontend_menu', 'Frontend Menu', 1),
-(113, 1, 2, 92, 'fab fa-accusoft', 'Member', '12sad', '1', 1);
+(114, 1, 2, 92, 'fas fa-birthday-cake', 'Produk', 'produk', '#', 1),
+(115, 1, 2, 92, 'fas fa-birthday-cake', 'Kelola Produk', 'produk', '#', 1),
+(117, 1, 2, 92, 'fas fa-cart-arrow-down', 'Keranjang', '#', '#', 1),
+(118, 1, 2, 92, 'fas fa-money-bill-wave', 'Pembayaran', '#', '#', 1),
+(119, 1, 2, 92, 'fas fa-swatchbook', 'Kelola Pemesanan', '#', '#', 1),
+(120, 1, 2, 92, 'far fa-calendar-alt', 'Kelola Laporan', '#', '#', 1),
+(121, 1, 2, 92, 'fas fa-chart-line', 'Laporan Penjualan', '#', '#', 1);
 
 -- --------------------------------------------------------
 
@@ -382,10 +340,10 @@ INSERT INTO `menu_type` (`id_menu_type`, `type`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pembayran`
+-- Table structure for table `pembayaran`
 --
 
-CREATE TABLE `pembayran` (
+CREATE TABLE `pembayaran` (
   `id_pembayaran` int(11) NOT NULL,
   `id_pemesanan` int(11) NOT NULL,
   `metode_pembayaran` enum('bayar ditempat','transfer bank') NOT NULL,
@@ -436,7 +394,7 @@ CREATE TABLE `setting` (
 --
 
 INSERT INTO `setting` (`id`, `kode`, `nama`, `nilai`) VALUES
-(1, 'default.jpg', 'SIPTOKUNA', 'www.SIPTOKUNA.com');
+(1, 'store.png', 'RAMAYANA CAKE\'S', 'www.SIPTOKUNA.com');
 
 -- --------------------------------------------------------
 
@@ -460,7 +418,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `first_name`, `last_name`, `password`, `active`, `image`) VALUES
-(1, '', 'admin@muhakbar.com', 'Akbar', 'Admin', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', 1, 'akbr_pp_2.jpg'),
+(1, '', 'admin@muhakbar.com', 'Akbar', 'Admin', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', 1, 'IMG_E3043.JPG'),
 (46, 'member@muhakbar.com', 'member@muhakbar.com', 'akbar', 'member', '$2y$08$I8//I82woWY5EUsaK5RV/.m28pLCMxwpg9nPEgijrh4rLSi37BEeu', 1, 'default.jpg');
 
 -- --------------------------------------------------------
@@ -554,9 +512,9 @@ ALTER TABLE `menu_type`
   ADD PRIMARY KEY (`id_menu_type`);
 
 --
--- Indexes for table `pembayran`
+-- Indexes for table `pembayaran`
 --
-ALTER TABLE `pembayran`
+ALTER TABLE `pembayaran`
   ADD PRIMARY KEY (`id_pembayaran`);
 
 --
@@ -618,7 +576,7 @@ ALTER TABLE `frontend_menu`
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `list_session_token`
@@ -642,7 +600,7 @@ ALTER TABLE `mahasiswa`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
 
 --
 -- AUTO_INCREMENT for table `menu_type`
@@ -651,9 +609,9 @@ ALTER TABLE `menu_type`
   MODIFY `id_menu_type` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `pembayran`
+-- AUTO_INCREMENT for table `pembayaran`
 --
-ALTER TABLE `pembayran`
+ALTER TABLE `pembayaran`
   MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT;
 
 --
