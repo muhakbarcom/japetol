@@ -48,7 +48,7 @@
                     <td><?= rupiah($items['subtotal']); ?></td>
                     <td>
                         <button type="submit" class="btn btn-sm btn-warning">Update</button>
-                        <a href="<?php echo base_url() ?>konsumen/hapus/<?php echo $items['rowid']; ?>" class="btn btn-sm btn-danger">Hapus</a>
+                        <a href="<?php echo base_url() ?>pemesanan/hapus/<?php echo $items['rowid']; ?>" class="btn btn-sm btn-danger">Hapus</a>
                     </td>
                 </tr>
                 <?php $i++; ?>

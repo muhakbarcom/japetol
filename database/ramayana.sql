@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 05, 2021 at 08:28 AM
+-- Generation Time: Aug 05, 2021 at 11:39 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -384,7 +384,14 @@ INSERT INTO `produk` (`id_produk`, `nama_produk`, `harga_produk`, `stok_produk`,
 (1, 'First Love Patisserie', 65000, 5, 'First_Love.jpg'),
 (2, 'Choco Moonlight 15cm', 65000, 5, '1tart.png'),
 (3, 'Black Forest 16cm', 100000, 5, 'download_(1).jpg'),
-(4, 'Cake Fruit 16cm', 75000, 5, 'kue_fruits.jpeg');
+(4, 'Cake Fruit 16cm', 75000, 5, 'kue_fruits.jpeg'),
+(5, 'Black Forest 22m', 250000, 5, 'kue1_22cm.jpeg'),
+(6, 'Cake Tart Karakter 22cm', 250000, 5, 'kue_22cm_karakter.jpeg'),
+(7, 'Cake Lemon Tart 24cm', 230000, 5, 'Lemon_Tart.jpg'),
+(8, 'Ramayana Chese Cake', 150000, 5, 'th.jpg'),
+(9, 'Red velvet 16cm', 400000, 5, 'Kue-Red-Velvet-di-Cianjur.jpg'),
+(10, 'Sweet Heart 16cm', 70000, 5, 'sweet_heart.jpg'),
+(11, 'Korea Bento Cake 10cm', 50000, 5, 'WhatsApp_Image_2021-08-05_at_16_34_45.jpeg');
 
 -- --------------------------------------------------------
 
@@ -636,7 +643,7 @@ ALTER TABLE `pemesanan`
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `setting`
