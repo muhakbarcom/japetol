@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 05, 2021 at 07:41 AM
+-- Generation Time: Aug 05, 2021 at 08:28 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -376,6 +376,16 @@ CREATE TABLE `produk` (
   `gambar_produk` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `produk`
+--
+
+INSERT INTO `produk` (`id_produk`, `nama_produk`, `harga_produk`, `stok_produk`, `gambar_produk`) VALUES
+(1, 'First Love Patisserie', 65000, 5, 'First_Love.jpg'),
+(2, 'Choco Moonlight 15cm', 65000, 5, '1tart.png'),
+(3, 'Black Forest 16cm', 100000, 5, 'download_(1).jpg'),
+(4, 'Cake Fruit 16cm', 75000, 5, 'kue_fruits.jpeg');
+
 -- --------------------------------------------------------
 
 --
@@ -419,7 +429,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `email`, `first_name`, `last_name`, `password`, `active`, `image`) VALUES
 (1, '', 'admin@muhakbar.com', 'Akbar', 'Admin', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', 1, 'IMG_E3043.JPG'),
-(46, 'member@muhakbar.com', 'member@muhakbar.com', 'akbar', 'member', '$2y$08$I8//I82woWY5EUsaK5RV/.m28pLCMxwpg9nPEgijrh4rLSi37BEeu', 1, 'default.jpg');
+(46, 'member@muhakbar.com', 'member@muhakbar.com', 'akbar', 'member', '$2y$08$I8//I82woWY5EUsaK5RV/.m28pLCMxwpg9nPEgijrh4rLSi37BEeu', 1, 'default.jpg'),
+(47, 'bilapelanggan@gmail.com', 'bilapelanggan@gmail.com', 'salsabila', 'mulyani', '$2y$08$xYzNIounINGCLfSR/mE6TuO8KKImn77cLEivAHvrRR8Mf2oEPqb0K', 1, 'default.jpg');
 
 -- --------------------------------------------------------
 
@@ -449,7 +460,8 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 (1, 9, 17),
 (90, 12, 2),
 (67, 12, 8),
-(123, 46, 2);
+(123, 46, 2),
+(124, 47, 2);
 
 --
 -- Indexes for dumped tables
@@ -624,7 +636,7 @@ ALTER TABLE `pemesanan`
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `setting`
@@ -636,13 +648,13 @@ ALTER TABLE `setting`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
