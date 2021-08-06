@@ -36,6 +36,18 @@
     <div class="row mt-3">
         <div class="col-md-8 form-group">
             <h3>Pembayaran</h3>
+            <table class="table">
+            <tr>
+                    <th>Bank</th>
+                    <th>No Rekening</th>
+                    <th>Atas Nama</th>
+                </tr>
+                <tr>
+                    <td>BCA</td>
+                    <td>3456754</td>
+                    <td>Vinda Ayu Lestari</td>
+                </tr>
+            </table>
             <label>
                 Metode Pembayaran
                 <select name="metode_pembayaran" id="metode_pembayaran" class="form-control">

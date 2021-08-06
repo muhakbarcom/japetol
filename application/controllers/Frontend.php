@@ -35,10 +35,10 @@ class Frontend extends CI_Controller
       $config['first_url'] = base_url() . 'frontend';
     }
 
-    $config['per_page'] = 10;
+    $config['per_page'] = 12;
     $config['page_query_string'] = TRUE;
-    $config['total_rows'] = $this->Produk_model->total_rows($q);
-    $produk = $this->Produk_model->get_limit_data($config['per_page'], $start, $q);
+    $config['total_rows'] = $this->Produk_model->total_rows_pelanggan($q);
+    $produk = $this->Produk_model->get_limit_data_pelanggan($config['per_page'], $start, $q);
 
     $this->load->library('pagination');
     $this->pagination->initialize($config);
@@ -55,7 +55,8 @@ class Frontend extends CI_Controller
     $data['crumb'] = [
       'Produk' => '',
     ];
-
+    $this->session->set_flashdata('success', NULL);
+    $this->session->set_flashdata('error', NULL);
     $data['page'] = 'frontend/index';
     $this->load->view('template/pelanggan', $data);
   }

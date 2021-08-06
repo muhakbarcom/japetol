@@ -56,6 +56,44 @@ class Pemesanan extends CI_Controller
         $this->load->view('template/backend', $data);
     }
 
+    public function admin()
+    {
+        $q = urldecode($this->input->get('q', TRUE));
+        $start = intval($this->input->get('start'));
+
+        if ($q <> '') {
+            $config['base_url'] = base_url() . 'pemesanan/admin?q=' . urlencode($q);
+            $config['first_url'] = base_url() . 'pemesanan/admin?q=' . urlencode($q);
+        } else {
+            $config['base_url'] = base_url() . 'pemesanan/admin';
+            $config['first_url'] = base_url() . 'pemesanan/admin';
+        }
+
+        $config['per_page'] = 10;
+        $config['page_query_string'] = TRUE;
+        $config['total_rows'] = $this->Pemesanan_model->total_rows_admin($q);
+        $pemesanan = $this->Pemesanan_model->get_limit_data_admin($config['per_page'], $start, $q);
+
+        $this->load->library('pagination');
+        $this->pagination->initialize($config);
+
+        $data = array(
+            'pemesanan_data' => $pemesanan,
+            'q' => $q,
+            'pagination' => $this->pagination->create_links(),
+            'total_rows' => $config['total_rows'],
+            'start' => $start,
+        );
+        $data['title'] = 'Pemesanan';
+        $data['subtitle'] = '';
+        $data['crumb'] = [
+            'Pemesanan' => '',
+        ];
+
+        $data['page'] = 'pemesanan/pemesanan_admin';
+        $this->load->view('template/backend', $data);
+    }
+
     public function tambahKeranjang($id_produk)
     {
         $produk = $this->Produk_model->get_by_id($id_produk);
@@ -172,6 +210,29 @@ class Pemesanan extends CI_Controller
 
     public function buatPesanan()
     {
+        $metode_bayar = $this->input->post('metode_pembayaran', TRUE);
+        $bukti_transfer = $_FILES['bukti_transfer'];
+        // var_dump($bukti_transfer["size"]); exit;
+        if ($metode_bayar == "transfer bank" && $bukti_transfer["size"] ==0 ){
+            $this->session->set_flashdata('error', 'harus menyertakan bukti transfer');
+           
+            redirect(site_url('pemesanan/checkout')); exit;
+        } 
+        if ($bukti_transfer == '') {
+        } else {
+            $config['upload_path'] = './assets/uploads/image/bukti_tf/';
+            $config['allowed_types'] = 'gif|jpg|png|jpeg';
+            $config['max_size']     = '2048';
+
+            $this->load->library('upload', $config);
+
+            if ($this->upload->do_upload('bukti_transfer')) {
+
+                $bukti_transfer = $this->upload->data('file_name');
+            } else {
+                $bukti_transfer = null;
+            }
+        }
 
 
         $apa = $this->ion_auth->user()->row();
@@ -203,23 +264,7 @@ class Pemesanan extends CI_Controller
             $this->Detail_pemesanan_model->insert($data_detail);
         }
 
-        $bukti_transfer = $_FILES['bukti_transfer'];
-        if ($bukti_transfer == '') {
-        } else {
-            $config['upload_path'] = './assets/uploads/image/bukti_tf/';
-            $config['allowed_types'] = 'gif|jpg|png|jpeg';
-            $config['max_size']     = '2048';
-
-            $this->load->library('upload', $config);
-
-            if ($this->upload->do_upload('bukti_transfer')) {
-
-                $bukti_transfer = $this->upload->data('file_name');
-            } else {
-                $this->session->set_flashdata('error', $this->upload->display_errors());
-                redirect('pemesanan/checkout');
-            }
-        }
+      
         $data_pembayaran = array(
             'id_pemesanan' => $id_trx,
             'metode_pembayaran' => $this->input->post('metode_pembayaran', TRUE),
@@ -235,7 +280,7 @@ class Pemesanan extends CI_Controller
 
     public function berhasil()
     {
-
+        $this->session->set_flashdata('success', 'Pemesanan berhasil');
         $data['title'] = 'Berhasil';
         //$this->layout->set_privilege(1);
         $data['page'] = 'berhasil';
@@ -244,6 +289,7 @@ class Pemesanan extends CI_Controller
 
     public function checkout()
     {
+        // var_dump($_SESSION['success']); exit;
 
         $data['title'] = 'Pemesanan Konsumen';
         //$this->layout->set_privilege(1);

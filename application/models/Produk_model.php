@@ -51,6 +51,22 @@ class Produk_model extends CI_Model
 	$this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }
+    function total_rows_pelanggan($q = NULL) {
+        $this->db->where('stok_produk >', '0');    
+	$this->db->like('nama_produk', $q);
+	$this->db->from($this->table);
+        return $this->db->count_all_results();
+    }
+
+    // get data with limit and search
+    function get_limit_data_pelanggan($limit, $start = 0, $q = NULL) {
+        $this->db->order_by($this->id, $this->order);
+        $this->db->where('stok_produk >', '0');    
+	$this->db->like('nama_produk', $q);
+
+	$this->db->limit($limit, $start);
+        return $this->db->get($this->table)->result();
+    }
 
     // insert data
     function insert($data)

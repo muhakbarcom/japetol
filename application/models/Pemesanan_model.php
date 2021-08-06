@@ -49,6 +49,25 @@ class Pemesanan_model extends CI_Model
         $this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }
+    function total_rows_admin($q = NULL)
+    {
+  
+        $this->db->from($this->table);
+        return $this->db->count_all_results();
+    }
+
+    // get data with limit and search
+    function get_limit_data_admin($limit, $start = 0, $q = NULL)
+    {
+        $this->db->select('pm.id_pemesanan as id_pemesanan, pm.tanggal_pemesanan as tanggal_pemesanan, pm.total_pembayaran as total_pembayaran, pm.id_pelanggan as id_pelanggan, pb.id_pembayaran as id_pembayaran, pb.metode_pembayaran as metode_pembayaran, pb.status_pembayaran as status_pembayaran, pb.bukti_transfer as bukti_transfer');
+        $this->db->from('pemesanan pm');
+        $this->db->join('pembayaran pb','pm.id_pemesanan=pb.id_pemesanan');
+        
+        $this->db->group_by('pm.id_pemesanan');
+        $this->db->order_by('pm.id_pemesanan', $this->order);
+        $this->db->limit($limit, $start);
+        return $this->db->get($this->table)->result();
+    }
 
     // insert data
     function insert($data)
