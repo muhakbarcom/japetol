@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 06, 2021 at 10:39 AM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 8.0.0
+-- Generation Time: Aug 06, 2021 at 11:15 AM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.4.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -64,7 +64,10 @@ INSERT INTO `detail_pemesanan` (`id_detail_pemesanan`, `id_pemesanan`, `id_produ
 (13, 12, 10, 1, 70000),
 (14, 13, 10, 1, 70000),
 (15, 14, 8, 5, 750000),
-(16, 15, 11, 4, 200000);
+(16, 15, 11, 4, 200000),
+(18, 17, 8, 1, 150000),
+(19, 17, 7, 1, 230000),
+(20, 17, 6, 1, 250000);
 
 --
 -- Triggers `detail_pemesanan`
@@ -381,8 +384,9 @@ CREATE TABLE `pembayaran` (
 INSERT INTO `pembayaran` (`id_pembayaran`, `id_pemesanan`, `metode_pembayaran`, `status_pembayaran`, `bukti_transfer`) VALUES
 (11, 12, 'transfer bank', 'dalam proses', 'iko13.jpg'),
 (12, 13, 'bayar ditempat', 'dalam proses', NULL),
-(13, 14, 'transfer bank', 'dalam proses', 'iko14.jpg'),
-(14, 15, 'bayar ditempat', 'dalam proses', NULL);
+(13, 14, 'transfer bank', 'selesai', 'iko14.jpg'),
+(14, 15, 'bayar ditempat', 'selesai', NULL),
+(16, 17, 'bayar ditempat', 'selesai', NULL);
 
 -- --------------------------------------------------------
 
@@ -394,18 +398,20 @@ CREATE TABLE `pemesanan` (
   `id_pemesanan` int(11) NOT NULL,
   `tanggal_pemesanan` date NOT NULL,
   `total_pembayaran` int(11) NOT NULL,
-  `id_pelanggan` int(11) NOT NULL
+  `id_pelanggan` int(11) NOT NULL,
+  `status_pemesanan` enum('sedang diproses','selesai','belum diproses') NOT NULL DEFAULT 'belum diproses'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `pemesanan`
 --
 
-INSERT INTO `pemesanan` (`id_pemesanan`, `tanggal_pemesanan`, `total_pembayaran`, `id_pelanggan`) VALUES
-(12, '2021-08-06', 120000, 47),
-(13, '2021-08-06', 70000, 47),
-(14, '2021-08-06', 750000, 47),
-(15, '2021-08-06', 200000, 47);
+INSERT INTO `pemesanan` (`id_pemesanan`, `tanggal_pemesanan`, `total_pembayaran`, `id_pelanggan`, `status_pemesanan`) VALUES
+(12, '2021-08-06', 120000, 47, 'belum diproses'),
+(13, '2021-08-06', 70000, 47, 'belum diproses'),
+(14, '2021-08-06', 750000, 47, 'selesai'),
+(15, '2021-08-06', 200000, 47, 'selesai'),
+(17, '2021-08-06', 630000, 47, 'selesai');
 
 -- --------------------------------------------------------
 
@@ -431,9 +437,9 @@ INSERT INTO `produk` (`id_produk`, `nama_produk`, `harga_produk`, `stok_produk`,
 (3, 'Black Forest 16cm', 100000, 5, 'download_(1).jpg'),
 (4, 'Cake Fruit 16cm', 75000, 5, 'kue_fruits.jpeg'),
 (5, 'Black Forest 22m', 250000, 5, 'kue1_22cm.jpeg'),
-(6, 'Cake Tart Karakter 22cm', 250000, 5, 'kue_22cm_karakter.jpeg'),
-(7, 'Cake Lemon Tart 24cm', 230000, 5, 'Lemon_Tart.jpg'),
-(8, 'Ramayana Chese Cake', 150000, 5, 'th.jpg'),
+(6, 'Cake Tart Karakter 22cm', 250000, 4, 'kue_22cm_karakter.jpeg'),
+(7, 'Cake Lemon Tart 24cm', 230000, 4, 'Lemon_Tart.jpg'),
+(8, 'Ramayana Chese Cake', 150000, 4, 'th.jpg'),
 (9, 'Red velvet 16cm', 400000, 5, 'Kue-Red-Velvet-di-Cianjur.jpg'),
 (10, 'Sweet Heart 16cm', 70000, 5, 'sweet_heart.jpg'),
 (11, 'Korea Bento Cake 10cm', 50000, 5, 'WhatsApp_Image_2021-08-05_at_16_34_45.jpeg');
@@ -480,7 +486,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `first_name`, `last_name`, `password`, `active`, `image`) VALUES
-(1, '', 'admin@muhakbar.com', 'Akbar', 'Admin', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', 1, 'IMG_E3043.JPG'),
+(1, '', 'admin@siptokuna.com', 'VInda', 'Ayu', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', 1, 'IMG_E3043.JPG'),
 (46, 'member@muhakbar.com', 'member@muhakbar.com', 'akbar', 'member', '$2y$08$I8//I82woWY5EUsaK5RV/.m28pLCMxwpg9nPEgijrh4rLSi37BEeu', 1, 'default.jpg'),
 (47, 'bilapelanggan@gmail.com', 'bilapelanggan@gmail.com', 'salsabila', 'mulyani', '$2y$08$xYzNIounINGCLfSR/mE6TuO8KKImn77cLEivAHvrRR8Mf2oEPqb0K', 1, 'default.jpg');
 
@@ -628,7 +634,7 @@ ALTER TABLE `akbr_contoh`
 -- AUTO_INCREMENT for table `detail_pemesanan`
 --
 ALTER TABLE `detail_pemesanan`
-  MODIFY `id_detail_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_detail_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `frontend_menu`
@@ -676,13 +682,13 @@ ALTER TABLE `menu_type`
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  MODIFY `id_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `produk`

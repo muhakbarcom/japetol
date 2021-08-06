@@ -356,6 +356,39 @@ class Pemesanan extends CI_Controller
         echo $delete;
     }
 
+    public function konfirmasi_bayar($id_pemesanan, $id_pembayaran)
+    {
+
+        $data = array(
+            'status_pembayaran' => "selesai",
+        );
+        $data_pemesanan = array(
+            'status_pemesanan' => "sedang diproses",
+        );
+
+        $this->Pembayaran_model->update($id_pembayaran, $data);
+        $this->Pemesanan_model->update($id_pemesanan, $data_pemesanan);
+
+        $this->session->set_flashdata('success', 'Update Record Success');
+        redirect(site_url('pemesanan/admin'));
+    }
+    public function selesaikan($id_pemesanan, $id_pembayaran)
+    {
+
+        $data = array(
+            'status_pembayaran' => "selesai",
+        );
+        $data_pemesanan = array(
+            'status_pemesanan' => "selesai",
+        );
+
+        $this->Pembayaran_model->update($id_pembayaran, $data);
+        $this->Pemesanan_model->update($id_pemesanan, $data_pemesanan);
+
+        $this->session->set_flashdata('success', 'Update Record Success');
+        redirect(site_url('pemesanan/admin'));
+    }
+
     public function _rules()
     {
         $this->form_validation->set_rules('tanggal_pemesanan', 'tanggal pemesanan', 'trim|required');
