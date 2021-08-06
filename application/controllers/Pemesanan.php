@@ -10,9 +10,10 @@ class Pemesanan extends CI_Controller
         parent::__construct();
         $c_url = $this->router->fetch_class();
         $this->layout->auth();
-        $this->layout->auth_privilege($c_url);
-        $this->load->model('Pemesanan_model');
+        // exit;
+        // $this->layout->auth_privilege($c_url);
         $this->load->library('form_validation');
+        $this->load->model('Pemesanan_model');
         $this->load->model('Produk_model');
         $this->load->model('Detail_pemesanan_model');
         $this->load->model('Pembayaran_model');
@@ -97,6 +98,20 @@ class Pemesanan extends CI_Controller
     public function tambahKeranjang($id_produk)
     {
         $produk = $this->Produk_model->get_by_id($id_produk);
+
+        $data = array(
+            'id'      => $produk->id_produk,
+            'qty'     => 1,
+            'price'   => $produk->harga_produk,
+            'name'    => $produk->nama_produk,
+        );
+        $this->cart->insert($data);
+        redirect('frontend');
+    }
+    public function addKeranjang($id_produk)
+    {
+        $produk = $this->Produk_model->get_by_id($id_produk);
+
         $data = array(
             'id'      => $produk->id_produk,
             'qty'     => 1,
@@ -213,11 +228,12 @@ class Pemesanan extends CI_Controller
         $metode_bayar = $this->input->post('metode_pembayaran', TRUE);
         $bukti_transfer = $_FILES['bukti_transfer'];
         // var_dump($bukti_transfer["size"]); exit;
-        if ($metode_bayar == "transfer bank" && $bukti_transfer["size"] ==0 ){
+        if ($metode_bayar == "transfer bank" && $bukti_transfer["size"] == 0) {
             $this->session->set_flashdata('error', 'harus menyertakan bukti transfer');
-           
-            redirect(site_url('pemesanan/checkout')); exit;
-        } 
+
+            redirect(site_url('pemesanan/checkout'));
+            exit;
+        }
         if ($bukti_transfer == '') {
         } else {
             $config['upload_path'] = './assets/uploads/image/bukti_tf/';
@@ -264,7 +280,7 @@ class Pemesanan extends CI_Controller
             $this->Detail_pemesanan_model->insert($data_detail);
         }
 
-      
+
         $data_pembayaran = array(
             'id_pemesanan' => $id_trx,
             'metode_pembayaran' => $this->input->post('metode_pembayaran', TRUE),
