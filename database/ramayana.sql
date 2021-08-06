@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 06, 2021 at 11:15 AM
+-- Generation Time: Aug 06, 2021 at 11:33 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -220,11 +220,23 @@ INSERT INTO `groups_menu` (`id_groups`, `id_menu`) VALUES
 (2, 127),
 (2, 114),
 (1, 115),
-(1, 120),
 (33, 121),
 (2, 117),
 (2, 118),
-(1, 119);
+(1, 119),
+(1, 120);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `laporan`
+-- (See below for the actual view)
+--
+CREATE TABLE `laporan` (
+`tanggal_pemesanan` date
+,`total_transaksi` bigint(21)
+,`pendapatan` decimal(32,0)
+);
 
 -- --------------------------------------------------------
 
@@ -342,7 +354,7 @@ INSERT INTO `menu` (`id_menu`, `sort`, `level`, `parent_id`, `icon`, `label`, `l
 (117, 1, 2, 92, 'fas fa-cart-arrow-down', 'Keranjang', '#', '#', 1),
 (118, 1, 2, 92, 'fas fa-money-bill-wave', 'Pembayaran', '#', '#', 1),
 (119, 1, 2, 92, 'fas fa-swatchbook', 'Kelola Pemesanan', 'pemesanan/admin', '#', 1),
-(120, 1, 2, 92, 'far fa-calendar-alt', 'Kelola Laporan', '#', '#', 1),
+(120, 1, 2, 92, 'far fa-calendar-alt', 'Kelola Laporan', 'laporan', '#', 1),
 (121, 1, 2, 92, 'fas fa-chart-line', 'Laporan Penjualan', '#', '#', 1);
 
 -- --------------------------------------------------------
@@ -520,6 +532,15 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 (67, 12, 8),
 (123, 46, 2),
 (124, 47, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `laporan`
+--
+DROP TABLE IF EXISTS `laporan`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `laporan`  AS  (select `pemesanan`.`tanggal_pemesanan` AS `tanggal_pemesanan`,count(`pemesanan`.`id_pemesanan`) AS `total_transaksi`,sum(`pemesanan`.`total_pembayaran`) AS `pendapatan` from `pemesanan` where `pemesanan`.`status_pemesanan` = 'selesai') ;
 
 --
 -- Indexes for dumped tables
