@@ -87,6 +87,7 @@ class Produk extends CI_Controller
             'action' => site_url('produk/create_action'),
             'id_produk' => set_value('id_produk'),
             'nama_produk' => set_value('nama_produk'),
+            'kategori_produk' => set_value('kategori_produk'),
             'harga_produk' => set_value('harga_produk'),
             'stok_produk' => set_value('stok_produk'),
             'gambar_produk' => set_value('gambar_produk'),
@@ -96,6 +97,10 @@ class Produk extends CI_Controller
         $data['crumb'] = [
             'Dashboard' => '',
         ];
+        // ambil data kategori_produk
+        $this->load->model('Kategori_produk_model');
+        $data['kategori_produk'] = $this->Kategori_produk_model->get_all();
+
 
         $data['page'] = 'produk/produk_form';
         $this->load->view('template/backend', $data);
@@ -129,6 +134,7 @@ class Produk extends CI_Controller
                 'nama_produk' => $this->input->post('nama_produk', TRUE),
                 'harga_produk' => $this->input->post('harga_produk', TRUE),
                 'stok_produk' => $this->input->post('stok_produk', TRUE),
+                'kategori_id' => $this->input->post('kategori_produk', TRUE),
                 'gambar_produk' => $gambar_produk,
             );
 

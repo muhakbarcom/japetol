@@ -33,6 +33,18 @@
                     <?php else : ?>
                     <?php endif ?>
                 </div>
+                <!-- $kategori_produk -->
+                <div class="form-group">
+                    <label for="int">Kategori Produk <?php echo form_error('kategori_produk') ?></label>
+                    <select name="kategori_produk" id="kategori_produk" class="form-control">
+                        <option value="">-- Pilih Kategori Produk --</option>
+                        <?php foreach ($kategori_produk as $kategori) : ?>
+                            <option value="<?= $kategori['id_kategori'] ?>" <?= $kategori['id_kategori'] == $kategori_produk ? 'selected' : '' ?>><?= $kategori['kategori'] ?></option>
+                        <?php endforeach ?>
+                    </select>
+                </div>
+
+
                 <input type="hidden" name="gambar_lama" value="<?php echo $gambar_produk; ?>" />
                 <input type="hidden" name="id_produk" value="<?php echo $id_produk; ?>" />
                 <button type="submit" class="btn btn-primary"><?php echo $button ?></button>

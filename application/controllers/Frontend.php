@@ -24,6 +24,9 @@ class Frontend extends CI_Controller
 
   public function index()
   {
+
+
+
     $q = urldecode($this->input->get('q', TRUE));
     $start = intval($this->input->get('start'));
 
@@ -37,8 +40,15 @@ class Frontend extends CI_Controller
 
     $config['per_page'] = 12;
     $config['page_query_string'] = TRUE;
-    $config['total_rows'] = $this->Produk_model->total_rows_pelanggan($q);
-    $produk = $this->Produk_model->get_limit_data_pelanggan($config['per_page'], $start, $q);
+    if (isset($_GET['id_kategori'])) {
+      $q = $_GET['id_kategori'];
+      $config['total_rows'] = $this->Produk_model->total_rows_pelanggan2($q);
+      $produk = $this->Produk_model->get_limit_data_pelanggan2($config['per_page'], $start, $q,);
+    } else {
+      $config['total_rows'] = $this->Produk_model->total_rows_pelanggan($q);
+      $produk = $this->Produk_model->get_limit_data_pelanggan($config['per_page'], $start, $q);
+    }
+
 
     $this->load->library('pagination');
     $this->pagination->initialize($config);
@@ -106,6 +116,12 @@ class Frontend extends CI_Controller
   {
     $data['page'] = 'frontend/signup';
     $data['title'] = 'Signup';
+    $this->load->view('template/frontend', $data);
+  }
+  public function kategori()
+  {
+    $data['page'] = 'frontend/kategori';
+    $data['title'] = 'Kategori';
     $this->load->view('template/frontend', $data);
   }
 }

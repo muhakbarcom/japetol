@@ -33,7 +33,21 @@
                                     </div>
                                 </form>
                             </div>
+                            <!-- get id kategori from kategori_produk sql -->
+                            <div class="col-md text-center">
+                                <?php
+                                $kategori = $this->db->get('kategori_produk')->result_array();
+                                foreach ($kategori as $k) {
+                                ?>
+                                    <a href="<?php echo site_url('frontend/index?id_kategori=' . $k['id_kategori']); ?>" class="btn btn-primary"><?php echo $k['kategori']; ?></a>
+                                <?php
+                                }
+                                ?>
+                            </div>
                         </div>
+                        <!-- filter kategori produk -->
+
+
                         <div class="row">
                             <?php
                             foreach ($produk_data as $produk) {

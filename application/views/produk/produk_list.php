@@ -49,6 +49,7 @@
                             <th>Nama Produk</th>
                             <th>Harga Produk</th>
                             <th>Stok Produk</th>
+                            <th>Kategori Produk</th>
                             <th>Gambar Produk</th>
                             <th>Action</th>
                         </tr><?php
@@ -57,11 +58,18 @@
                             <tr>
 
                                 <td style="width: 10px;padding-left: 8px;"><input type="checkbox" name="id" value="<?= $produk->id_produk; ?>" />&nbsp;</td>
-
+                                <?php
+                                    // $produk->kategori_id to kategori name
+                                    $kategori = $this->db->get_where('kategori_produk', ['id_kategori' => $produk->kategori_id])->row();
+                                    // print_r($kategori);
+                                    // exit;
+                                ?>
                                 <td width="80px"><?php echo ++$start ?></td>
                                 <td><?php echo $produk->nama_produk ?></td>
-                                <td><?php echo $produk->harga_produk ?></td>
+                                <!-- harga produk to rupiah -->
+                                <td><?php echo rupiah($produk->harga_produk) ?></td>
                                 <td><?php echo $produk->stok_produk ?></td>
+                                <td><?php echo $kategori->kategori ?></td>
                                 <td><img src="<?= base_url('assets/uploads/image/menu/') . $produk->gambar_produk ?>" class="img-thumbnail" width="150"></td>
                                 <td style="text-align:center" width="200px">
                                     <?php

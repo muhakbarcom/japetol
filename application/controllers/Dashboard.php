@@ -12,7 +12,7 @@ class Dashboard extends CI_Controller
 
 	public function index()
 	{
-		if ($this->ion_auth->in_group("pelanggan")) {
+		if ($this->ion_auth->in_group("pembeli")) {
 			redirect('frontend');
 		} else {
 			$data['title'] = 'Dashboard';

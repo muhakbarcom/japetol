@@ -1016,7 +1016,7 @@ class Auth extends CI_Controller
 			// redirect them back to the admin page
 			$this->session->set_flashdata('success', $this->ion_auth->messages());
 
-			redirect("auth/register_success", 'refresh');
+			redirect("auth/register_pengguna", 'refresh');
 		} else {
 			// display the create user form
 			// set the flash data error message if there is one
@@ -1070,6 +1070,34 @@ class Auth extends CI_Controller
 			//$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'create_user', $this->data);
 		}
 	}
+
+	public function register_pengguna()
+	{
+		$id_user = $this->ion_auth->user()->row();
+		$id_user_terbaru = $this->db->query("select * from users order by id desc")->row();
+		// $row = $this->Penumpang_model->get_by_id($id_user_terbaru->id);
+		if ($id_user_terbaru) {
+			$data = array(
+				'button' => 'Simpan',
+				'action' => site_url('auth/register_success'),
+				'id_user' => set_value('id_user', $id_user_terbaru->id),
+			);
+			$data['title'] = 'Data Saya';
+			$data['subtitle'] = '';
+			$data['crumb'] = [
+				'Dashboard' => '',
+			];
+
+			// $data['page'] = 'penumpang/penumpang_data';
+			$this->load->view('auth/register_penumpang', $data);
+		} else {
+			$this->session->set_flashdata('error', 'Record Not Found');
+			// redirect(site_url('login'));
+			echo "error";
+		}
+		// $this->load->view('auth/register_penumpang', $data);
+	}
+
 	public function register_success()
 	{
 		$this->data['title'] = 'Registrasi';
@@ -1077,6 +1105,30 @@ class Auth extends CI_Controller
 		$this->data['crumb'] = [
 			'User' => '',
 		];
+
+		$data = array(
+			'user_id' => $this->input->post('id_user', TRUE),
+			'group_id' => $this->input->post('groups_id', TRUE),
+		);
+
+		// sql query untuk mengupdate table users_groups set group_id
+		$this->db->where('user_id', $this->input->post('id_user', TRUE));
+		$this->db->update('users_groups', $data);
+
+		$this->session->set_flashdata('success', 'Berhasil Registrasi');
+
+		// $this->load->view('auth/register_success', $this->data);
+		redirect(site_url('auth/register_success2'));
+	}
+	public function register_success2()
+	{
+		$this->data['title'] = 'Registrasi';
+		$this->data['subtitle'] = '';
+		$this->data['crumb'] = [
+			'User' => '',
+		];
+
+
 		$this->load->view('auth/register_success', $this->data);
 	}
 }

@@ -103,7 +103,7 @@ $setting_aplikasi = $this->db->get('setting')->row();
             ?>
             <!-- User Account: style can be found in dropdown.less -->
 
-            <?php if ($this->ion_auth->in_group("pelanggan")) { ?>
+            <?php if ($this->ion_auth->in_group("pembeli")) { ?>
               <li class="dropdown user user-menu">
                 <a href="<?= base_url('pemesanan/keranjang'); ?>">
                   <span class="hidden-xs"><i class="fas fa-shopping-cart"></i> Keranjang (<?php echo $this->cart->total_items() ?>)</span>
@@ -150,9 +150,9 @@ $setting_aplikasi = $this->db->get('setting')->row();
 
     <footer class="main-footer">
       <div class="pull-right hidden-xs">
-        <b>Developed by<a href="https://SIPTOKUNA.com"> SIPTOKUNA</b></a>
+        <b>Developed by<a href="https://JAPETOL.com"> JAPETOL</b></a>
       </div>
-      <strong>Copyright &copy; <?= date('Y'); ?> <a href="https://SIPTOKUNA.com">SIPTOKUNA</a>.</strong> All rights
+      <strong>Copyright &copy; <?= date('Y'); ?> <a href="https://JAPETOL.com">JAPETOL</a>.</strong> All rights
       reserved.
       <!-- copyright
    
