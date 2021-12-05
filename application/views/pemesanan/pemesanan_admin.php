@@ -68,9 +68,9 @@
                                 </td>
                                 <td>
                                     <?php if ($pemesanan->status_pemesanan == 'belum diproses' && $pemesanan->status_pembayaran == 'dalam proses') : ?>
-                                        <a href="<?= base_url('pemesanan/konfirmasi_bayar/') . $pemesanan->id_pemesanan . '/' . $pemesanan->id_pembayaran; ?>" class="btn btn-warning">konfirmasi bayar</a>
+                                        <a href="<?= base_url('pemesanan/konfirmasi_bayar/') . $pemesanan->id_pemesanan . '/' . $pemesanan->id_pembayaran; ?>" class="btn btn-warning">konfirmasi</a>
                                     <?php elseif ($pemesanan->status_pemesanan == 'sedang diproses' && $pemesanan->status_pembayaran == 'selesai') : ?>
-                                        <a href="<?= base_url('pemesanan/selesaikan/') . $pemesanan->id_pemesanan . '/' . $pemesanan->id_pembayaran; ?>" class="btn btn-primary">Selesaikan</a>
+                                        <a href="<?= base_url('pemesanan/selesaikan/') . $pemesanan->id_pemesanan . '/' . $pemesanan->id_pembayaran; ?>" class="btn btn-primary">Kirim</a>
                                     <?php else : ?>
                                         -
                                     <?php endif; ?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 04, 2021 at 04:13 PM
+-- Generation Time: Dec 05, 2021 at 04:01 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -69,7 +69,12 @@ INSERT INTO `detail_pemesanan` (`id_detail_pemesanan`, `id_pemesanan`, `id_produ
 (19, 17, 7, 1, 230000),
 (20, 17, 6, 1, 250000),
 (21, 18, 16, 1, 140000),
-(22, 19, 17, 1, 40000);
+(22, 19, 17, 1, 40000),
+(23, 20, 18, 1, 140000),
+(24, 21, 18, 1, 140000),
+(25, 21, 16, 1, 140000),
+(26, 21, 14, 1, 40000),
+(27, 22, 19, 1, 50000);
 
 --
 -- Triggers `detail_pemesanan`
@@ -259,14 +264,6 @@ CREATE TABLE `login_attempts` (
   `time` int(11) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `login_attempts`
---
-
-INSERT INTO `login_attempts` (`id`, `ip_address`, `login`, `time`) VALUES
-(18, '::1', 'admin@admin.com', 1638616517),
-(19, '::1', 'admin@muhakbar.com', 1638616523);
-
 -- --------------------------------------------------------
 
 --
@@ -387,7 +384,10 @@ INSERT INTO `pembayaran` (`id_pembayaran`, `id_pemesanan`, `metode_pembayaran`, 
 (14, 15, 'bayar ditempat', 'selesai', NULL),
 (16, 17, 'bayar ditempat', 'selesai', NULL),
 (17, 18, 'bayar ditempat', 'dalam proses', NULL),
-(18, 19, 'transfer bank', 'selesai', 'c39f5eba-2ec8-4c90-bd67-57152fd139c2.jpg');
+(18, 19, 'transfer bank', 'selesai', 'c39f5eba-2ec8-4c90-bd67-57152fd139c2.jpg'),
+(19, 20, 'bayar ditempat', 'dalam proses', NULL),
+(20, 21, 'bayar ditempat', 'selesai', NULL),
+(21, 22, 'transfer bank', 'selesai', 'c39f5eba-2ec8-4c90-bd67-57152fd139c21.jpg');
 
 -- --------------------------------------------------------
 
@@ -400,21 +400,25 @@ CREATE TABLE `pemesanan` (
   `tanggal_pemesanan` date NOT NULL,
   `total_pembayaran` int(11) NOT NULL,
   `id_pelanggan` int(11) NOT NULL,
-  `status_pemesanan` enum('sedang diproses','selesai','belum diproses') NOT NULL DEFAULT 'belum diproses'
+  `status_pemesanan` enum('sedang diproses','selesai','belum diproses') NOT NULL DEFAULT 'belum diproses',
+  `alamat` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `pemesanan`
 --
 
-INSERT INTO `pemesanan` (`id_pemesanan`, `tanggal_pemesanan`, `total_pembayaran`, `id_pelanggan`, `status_pemesanan`) VALUES
-(12, '2021-08-06', 120000, 47, 'belum diproses'),
-(13, '2021-08-06', 70000, 47, 'selesai'),
-(14, '2021-08-06', 750000, 47, 'selesai'),
-(15, '2021-08-06', 200000, 47, 'selesai'),
-(17, '2021-08-06', 630000, 47, 'selesai'),
-(18, '2021-12-04', 140000, 46, 'belum diproses'),
-(19, '2021-12-04', 40000, 50, 'selesai');
+INSERT INTO `pemesanan` (`id_pemesanan`, `tanggal_pemesanan`, `total_pembayaran`, `id_pelanggan`, `status_pemesanan`, `alamat`) VALUES
+(12, '2021-08-06', 120000, 47, 'belum diproses', '0'),
+(13, '2021-08-06', 70000, 47, 'selesai', '0'),
+(14, '2021-08-06', 750000, 47, 'selesai', '0'),
+(15, '2021-08-06', 200000, 47, 'selesai', '0'),
+(17, '2021-08-06', 630000, 47, 'selesai', '0'),
+(18, '2021-12-04', 140000, 46, 'belum diproses', '0'),
+(19, '2021-12-04', 40000, 50, 'selesai', '0'),
+(20, '2021-12-05', 140000, 46, 'belum diproses', '0'),
+(21, '2021-12-05', 320000, 46, 'selesai', '0'),
+(22, '2021-12-05', 50000, 46, 'selesai', '');
 
 -- --------------------------------------------------------
 
@@ -428,19 +432,21 @@ CREATE TABLE `produk` (
   `harga_produk` int(11) NOT NULL,
   `stok_produk` int(11) NOT NULL,
   `gambar_produk` varchar(50) NOT NULL,
-  `kategori_id` int(11) NOT NULL
+  `kategori_id` int(11) NOT NULL,
+  `id_penjual` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `produk`
 --
 
-INSERT INTO `produk` (`id_produk`, `nama_produk`, `harga_produk`, `stok_produk`, `gambar_produk`, `kategori_id`) VALUES
-(14, 'Whiskas', 40000, 22, 'neko21.jpg', 6),
-(15, 'Kalung', 140000, 22, 'neko22.jpg', 6),
-(16, 'Whiskas', 140000, 21, 'neko23.jpg', 5),
-(17, 'Whiskas', 40000, 21, 'neko24.jpg', 7),
-(18, 'Kalung', 140000, 22, 'neko25.jpg', 8);
+INSERT INTO `produk` (`id_produk`, `nama_produk`, `harga_produk`, `stok_produk`, `gambar_produk`, `kategori_id`, `id_penjual`) VALUES
+(14, 'Whiskas', 40000, 21, 'neko21.jpg', 6, 0),
+(15, 'Kalung', 140000, 22, 'neko22.jpg', 6, 0),
+(16, 'Whiskas', 140000, 20, 'neko23.jpg', 5, 0),
+(17, 'Whiskas', 40000, 21, 'neko24.jpg', 7, 0),
+(18, 'Kalung', 140000, 20, 'neko25.jpg', 8, 0),
+(19, 'Serokan Tai Kucing', 50000, 89, 'neko.png', 7, 53);
 
 -- --------------------------------------------------------
 
@@ -640,7 +646,7 @@ ALTER TABLE `akbr_contoh`
 -- AUTO_INCREMENT for table `detail_pemesanan`
 --
 ALTER TABLE `detail_pemesanan`
-  MODIFY `id_detail_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id_detail_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `frontend_menu`
@@ -694,19 +700,19 @@ ALTER TABLE `menu_type`
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  MODIFY `id_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id_pemesanan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `setting`

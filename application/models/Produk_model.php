@@ -45,11 +45,9 @@ class Produk_model extends CI_Model
     function get_limit_data($limit, $start = 0, $q = NULL)
     {
         $this->db->order_by($this->id, $this->order);
-        $this->db->like('id_produk', $q);
         $this->db->or_like('nama_produk', $q);
-        $this->db->or_like('harga_produk', $q);
-        $this->db->or_like('stok_produk', $q);
-        $this->db->or_like('gambar_produk', $q);
+        // where id_pelanggan = session user_id
+        $this->db->where('id_penjual', $this->session->userdata('user_id'));
         $this->db->limit($limit, $start);
         return $this->db->get($this->table)->result();
     }

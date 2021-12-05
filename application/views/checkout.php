@@ -37,7 +37,7 @@
         <div class="col-md-8 form-group">
             <h3>Pembayaran</h3>
             <table class="table">
-            <tr>
+                <tr>
                     <th>Bank</th>
                     <th>No Rekening</th>
                     <th>Atas Nama</th>
@@ -45,9 +45,14 @@
                 <tr>
                     <td>BCA</td>
                     <td>3456754</td>
-                    <td>Vinda Ayu Lestari</td>
+                    <td>PT Japetol Indonesia</td>
                 </tr>
             </table>
+            <!-- masukan alamat -->
+            <div class="form-group">
+                <label for="alamat">Alamat</label>
+                <textarea class="form-control" id="alamat" name="alamat" rows="3"></textarea>
+            </div>
             <label>
                 Metode Pembayaran
                 <select name="metode_pembayaran" id="metode_pembayaran" class="form-control">

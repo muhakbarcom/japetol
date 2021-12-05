@@ -38,7 +38,7 @@
                     <label for="int">Kategori Produk <?php echo form_error('kategori_produk') ?></label>
                     <select name="kategori_produk" id="kategori_produk" class="form-control">
                         <option value="">-- Pilih Kategori Produk --</option>
-                        <?php foreach ($kategori_produk as $kategori) : ?>
+                        <?php foreach ($kategori_produk_list as $kategori) : ?>
                             <option value="<?= $kategori['id_kategori'] ?>" <?= $kategori['id_kategori'] == $kategori_produk ? 'selected' : '' ?>><?= $kategori['kategori'] ?></option>
                         <?php endforeach ?>
                     </select>

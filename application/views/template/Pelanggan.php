@@ -109,6 +109,12 @@ $setting_aplikasi = $this->db->get('setting')->row();
                   <span class="hidden-xs"><i class="fas fa-shopping-cart"></i> Keranjang (<?php echo $this->cart->total_items() ?>)</span>
                 </a>
               </li>
+              <!-- pemesanan -->
+              <li class="dropdown user user-menu">
+                <a href="<?= base_url('pemesanan/history_pemesanan'); ?>">
+                  <span class="hidden-xs"><i class="fas fa-shopping-cart"></i> History Pemesanan</span>
+                </a>
+              </li>
               <li>
                 <a href="<?= base_url('auth/logout'); ?>">
                   <span class="hidden-xs"><i class="fas fa-sign-out-alt"></i> Logout</span>

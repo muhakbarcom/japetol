@@ -98,6 +98,12 @@ class Pemesanan_model extends CI_Model
         $this->db->where_in($this->id, $arr_id);
         return $this->db->delete($this->table);
     }
+    // get by id pelanggan
+    function get_by_id_pelanggan($id)
+    {
+        $this->db->where('id_pelanggan', $id);
+        return $this->db->get($this->table)->result();
+    }
 }
 
 /* End of file Pemesanan_model.php */

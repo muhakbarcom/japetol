@@ -397,6 +397,20 @@ class Pemesanan extends CI_Controller
         $this->form_validation->set_rules('id_pemesanan', 'id_pemesanan', 'trim');
         $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
+
+    // history pemesanan by user_id login
+    public function history_pemesanan()
+    {
+        // get data pemesanan by user yang login
+        $id_pelanggan = $this->session->userdata('user_id');
+        $data['pemesanan'] = $this->Pemesanan_model->get_by_id_pelanggan($id_pelanggan);
+        // print_r($data['pemesanan']);
+        // exit;
+        $data['title'] = 'History Pemesanan';
+        // $this->layout->set_privilege(1);
+        $data['page'] = 'history_pemesanan';
+        $this->load->view('template/pelanggan', $data);
+    }
 }
 
 /* End of file Pemesanan.php */

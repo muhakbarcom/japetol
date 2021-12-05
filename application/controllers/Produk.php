@@ -99,7 +99,7 @@ class Produk extends CI_Controller
         ];
         // ambil data kategori_produk
         $this->load->model('Kategori_produk_model');
-        $data['kategori_produk'] = $this->Kategori_produk_model->get_all();
+        $data['kategori_produk_list'] = $this->Kategori_produk_model->get_all();
 
 
         $data['page'] = 'produk/produk_form';
@@ -131,6 +131,7 @@ class Produk extends CI_Controller
                 }
             }
             $data = array(
+                'id_penjual' => $this->session->userdata('user_id'),
                 'nama_produk' => $this->input->post('nama_produk', TRUE),
                 'harga_produk' => $this->input->post('harga_produk', TRUE),
                 'stok_produk' => $this->input->post('stok_produk', TRUE),
@@ -157,12 +158,19 @@ class Produk extends CI_Controller
                 'harga_produk' => set_value('harga_produk', $row->harga_produk),
                 'stok_produk' => set_value('stok_produk', $row->stok_produk),
                 'gambar_produk' => set_value('gambar_produk', $row->gambar_produk),
+                // kategori_id
+                'kategori_produk' => set_value('kategori_produk', $row->kategori_id),
+
             );
             $data['title'] = 'Produk';
             $data['subtitle'] = '';
             $data['crumb'] = [
                 'Dashboard' => '',
             ];
+            // ambil data kategori_produk
+            $this->load->model('Kategori_produk_model');
+            $data['kategori_produk_list'] = $this->Kategori_produk_model->get_all();
+
 
             $data['page'] = 'produk/produk_form';
             $this->load->view('template/backend', $data);
@@ -201,6 +209,7 @@ class Produk extends CI_Controller
                 'nama_produk' => $this->input->post('nama_produk', TRUE),
                 'harga_produk' => $this->input->post('harga_produk', TRUE),
                 'stok_produk' => $this->input->post('stok_produk', TRUE),
+                'kategori_id' => $this->input->post('kategori_produk', TRUE),
                 // 'gambar_produk' => $this->input->post('gambar_produk', TRUE),
             );
 

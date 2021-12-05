@@ -52,6 +52,7 @@
                             <?php
                             foreach ($produk_data as $produk) {
                             ?>
+
                                 <div class="col-md-2 bg-white shadow p-4 m-2">
                                     <div class=" mx-auto rounded">
                                         <img src="<?= base_url('assets/uploads/image/menu/') . $produk->gambar_produk ?>" class="img-thumbnail">
@@ -62,6 +63,12 @@
                                             <b>
                                                 <?php echo rupiah($produk->harga_produk) ?>
                                             </b>
+                                            <br>
+                                            <?php
+                                            // get kategori from table kategori_produk where id_kategori = $produk->kategori_id 
+                                            $kategori = $this->db->get_where('kategori_produk', ['id_kategori' => $produk->kategori_id])->row_array();
+                                            echo $kategori['kategori'];
+                                            ?>
                                             <br>
                                             <a href="<?= base_url('pemesanan/tambahKeranjang/') . $produk->id_produk; ?>" class="btn btn-primary"><i class="fas fa-shopping-cart"></i> Keranjang</a>
                                         </p>
